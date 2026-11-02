@@ -1,0 +1,592 @@
+[
+  {
+    "code": "064001",
+    "name": "Aiello del Sabato",
+    "file": "/municipal-crests/064001.gif"
+  },
+  {
+    "code": "064002",
+    "name": "Altavilla Irpina",
+    "file": "/municipal-crests/064002.jpg"
+  },
+  {
+    "code": "064003",
+    "name": "Andretta",
+    "file": "/municipal-crests/064003.gif"
+  },
+  {
+    "code": "064004",
+    "name": "Aquilonia",
+    "file": "/municipal-crests/064004.jpg"
+  },
+  {
+    "code": "064005",
+    "name": "Ariano Irpino",
+    "file": "/municipal-crests/064005.jpg"
+  },
+  {
+    "code": "064006",
+    "name": "Atripalda",
+    "file": "/municipal-crests/064006.png"
+  },
+  {
+    "code": "064007",
+    "name": "Avella",
+    "file": "/municipal-crests/064007.gif"
+  },
+  {
+    "code": "064008",
+    "name": "Avellino",
+    "file": "/municipal-crests/064008.jpg"
+  },
+  {
+    "code": "064009",
+    "name": "Bagnoli Irpino",
+    "file": "/municipal-crests/064009.gif"
+  },
+  {
+    "code": "064010",
+    "name": "Baiano",
+    "file": "/municipal-crests/064010.jpg"
+  },
+  {
+    "code": "064011",
+    "name": "Bisaccia",
+    "file": "/municipal-crests/064011.jpg"
+  },
+  {
+    "code": "064012",
+    "name": "Bonito",
+    "file": "/municipal-crests/064012.gif"
+  },
+  {
+    "code": "064013",
+    "name": "Cairano",
+    "file": "/municipal-crests/064013.gif"
+  },
+  {
+    "code": "064014",
+    "name": "Calabritto",
+    "file": "/municipal-crests/064014.jpg"
+  },
+  {
+    "code": "064015",
+    "name": "Calitri",
+    "file": "/municipal-crests/064015.jpg"
+  },
+  {
+    "code": "064016",
+    "name": "Candida",
+    "file": "/municipal-crests/064016.jpg"
+  },
+  {
+    "code": "064017",
+    "name": "Caposele",
+    "file": "/municipal-crests/064017.gif"
+  },
+  {
+    "code": "064018",
+    "name": "Capriglia Irpina",
+    "file": "/municipal-crests/064018.jpg"
+  },
+  {
+    "code": "064019",
+    "name": "Carife",
+    "file": "/municipal-crests/064019.gif"
+  },
+  {
+    "code": "064020",
+    "name": "Casalbore",
+    "file": "/municipal-crests/064020.jpg"
+  },
+  {
+    "code": "064021",
+    "name": "Cassano Irpino",
+    "file": "/municipal-crests/064021.jpg"
+  },
+  {
+    "code": "064022",
+    "name": "Castel Baronia",
+    "file": "/municipal-crests/064022.jpg"
+  },
+  {
+    "code": "064023",
+    "name": "Castelfranci",
+    "file": "/municipal-crests/064023.jpg"
+  },
+  {
+    "code": "064024",
+    "name": "Castelvetere sul Calore",
+    "file": "/municipal-crests/064024.jpg"
+  },
+  {
+    "code": "064025",
+    "name": "Cervinara",
+    "file": "/municipal-crests/064025.gif"
+  },
+  {
+    "code": "064026",
+    "name": "Cesinali",
+    "file": "/municipal-crests/064026.gif"
+  },
+  {
+    "code": "064027",
+    "name": "Chianche",
+    "file": "/municipal-crests/064027.jpg"
+  },
+  {
+    "code": "064028",
+    "name": "Chiusano di San Domenico",
+    "file": "/municipal-crests/064028.jpg"
+  },
+  {
+    "code": "064029",
+    "name": "Contrada",
+    "file": "/municipal-crests/064029.gif"
+  },
+  {
+    "code": "064030",
+    "name": "Conza della Campania",
+    "file": "/municipal-crests/064030.gif"
+  },
+  {
+    "code": "064031",
+    "name": "Domicella",
+    "file": "/municipal-crests/064031.gif"
+  },
+  {
+    "code": "064032",
+    "name": "Flumeri",
+    "file": "/municipal-crests/064032.jpg"
+  },
+  {
+    "code": "064033",
+    "name": "Fontanarosa",
+    "file": "/municipal-crests/064033.jpg"
+  },
+  {
+    "code": "064034",
+    "name": "Forino",
+    "file": "/municipal-crests/064034.jpg"
+  },
+  {
+    "code": "064035",
+    "name": "Frigento",
+    "file": "/municipal-crests/064035.gif"
+  },
+  {
+    "code": "064036",
+    "name": "Gesualdo",
+    "file": "/municipal-crests/064036.gif"
+  },
+  {
+    "code": "064037",
+    "name": "Greci",
+    "file": "/municipal-crests/064037.gif"
+  },
+  {
+    "code": "064038",
+    "name": "Grottaminarda",
+    "file": "/municipal-crests/064038.gif"
+  },
+  {
+    "code": "064039",
+    "name": "Grottolella",
+    "file": "/municipal-crests/064039.jpg"
+  },
+  {
+    "code": "064040",
+    "name": "Guardia Lombardi",
+    "file": "/municipal-crests/064040.jpg"
+  },
+  {
+    "code": "064041",
+    "name": "Lacedonia",
+    "file": "/municipal-crests/064041.jpg"
+  },
+  {
+    "code": "064042",
+    "name": "Lapio",
+    "file": "/municipal-crests/064042.png"
+  },
+  {
+    "code": "064043",
+    "name": "Lauro",
+    "file": "/municipal-crests/064043.jpg"
+  },
+  {
+    "code": "064044",
+    "name": "Lioni",
+    "file": "/municipal-crests/064044.jpg"
+  },
+  {
+    "code": "064045",
+    "name": "Luogosano",
+    "file": "/municipal-crests/064045.png"
+  },
+  {
+    "code": "064046",
+    "name": "Manocalzati",
+    "file": "/municipal-crests/064046.gif"
+  },
+  {
+    "code": "064047",
+    "name": "Marzano di Nola",
+    "file": "/municipal-crests/064047.gif"
+  },
+  {
+    "code": "064048",
+    "name": "Melito Irpino",
+    "file": "/municipal-crests/064048.jpg"
+  },
+  {
+    "code": "064049",
+    "name": "Mercogliano",
+    "file": "/municipal-crests/064049.jpg"
+  },
+  {
+    "code": "064050",
+    "name": "Mirabella Eclano",
+    "file": "/municipal-crests/064050.jpg"
+  },
+  {
+    "code": "064051",
+    "name": "Montaguto",
+    "file": "/municipal-crests/064051.gif"
+  },
+  {
+    "code": "064052",
+    "name": "Montecalvo Irpino",
+    "file": "/municipal-crests/064052.gif"
+  },
+  {
+    "code": "064053",
+    "name": "Montefalcione",
+    "file": "/municipal-crests/064053.jpg"
+  },
+  {
+    "code": "064054",
+    "name": "Monteforte Irpino",
+    "file": "/municipal-crests/064054.gif"
+  },
+  {
+    "code": "064055",
+    "name": "Montefredane",
+    "file": "/municipal-crests/064055.png"
+  },
+  {
+    "code": "064056",
+    "name": "Montefusco",
+    "file": "/municipal-crests/064056.gif"
+  },
+  {
+    "code": "064057",
+    "name": "Montella",
+    "file": "/municipal-crests/064057.gif"
+  },
+  {
+    "code": "064058",
+    "name": "Montemarano",
+    "file": "/municipal-crests/064058.png"
+  },
+  {
+    "code": "064059",
+    "name": "Montemiletto",
+    "file": "/municipal-crests/064059.gif"
+  },
+  {
+    "code": "064060",
+    "name": "Monteverde",
+    "file": "/municipal-crests/064060.gif"
+  },
+  {
+    "code": "064063",
+    "name": "Morra De Sanctis",
+    "file": "/municipal-crests/064063.png"
+  },
+  {
+    "code": "064064",
+    "name": "Moschiano",
+    "file": "/municipal-crests/064064.png"
+  },
+  {
+    "code": "064065",
+    "name": "Mugnano del Cardinale",
+    "file": "/municipal-crests/064065.jpg"
+  },
+  {
+    "code": "064066",
+    "name": "Nusco",
+    "file": "/municipal-crests/064066.gif"
+  },
+  {
+    "code": "064067",
+    "name": "Ospedaletto d'Alpinolo",
+    "file": "/municipal-crests/064067.png"
+  },
+  {
+    "code": "064068",
+    "name": "Pago del Vallo di Lauro",
+    "file": "/municipal-crests/064068.gif"
+  },
+  {
+    "code": "064069",
+    "name": "Parolise",
+    "file": "/municipal-crests/064069.gif"
+  },
+  {
+    "code": "064070",
+    "name": "Paternopoli",
+    "file": "/municipal-crests/064070.jpg"
+  },
+  {
+    "code": "064071",
+    "name": "Petruro Irpino",
+    "file": "/municipal-crests/064071.gif"
+  },
+  {
+    "code": "064072",
+    "name": "Pietradefusi",
+    "file": "/municipal-crests/064072.png"
+  },
+  {
+    "code": "064073",
+    "name": "Pietrastornina",
+    "file": "/municipal-crests/064073.png"
+  },
+  {
+    "code": "064074",
+    "name": "Prata di Principato Ultra",
+    "file": "/municipal-crests/064074.jpg"
+  },
+  {
+    "code": "064075",
+    "name": "Pratola Serra",
+    "file": "/municipal-crests/064075.gif"
+  },
+  {
+    "code": "064076",
+    "name": "Quadrelle",
+    "file": "/municipal-crests/064076.gif"
+  },
+  {
+    "code": "064077",
+    "name": "Quindici",
+    "file": "/municipal-crests/064077.gif"
+  },
+  {
+    "code": "064078",
+    "name": "Roccabascerana",
+    "file": "/municipal-crests/064078.gif"
+  },
+  {
+    "code": "064079",
+    "name": "Rocca San Felice",
+    "file": "/municipal-crests/064079.png"
+  },
+  {
+    "code": "064080",
+    "name": "Rotondi",
+    "file": "/municipal-crests/064080.gif"
+  },
+  {
+    "code": "064081",
+    "name": "Salza Irpina",
+    "file": "/municipal-crests/064081.jpg"
+  },
+  {
+    "code": "064082",
+    "name": "San Mango sul Calore",
+    "file": "/municipal-crests/064082.png"
+  },
+  {
+    "code": "064083",
+    "name": "San Martino Valle Caudina",
+    "file": "/municipal-crests/064083.jpg"
+  },
+  {
+    "code": "064084",
+    "name": "San Michele di Serino",
+    "file": "/municipal-crests/064084.gif"
+  },
+  {
+    "code": "064085",
+    "name": "San Nicola Baronia",
+    "file": "/municipal-crests/064085.jpg"
+  },
+  {
+    "code": "064086",
+    "name": "San Potito Ultra",
+    "file": "/municipal-crests/064086.png"
+  },
+  {
+    "code": "064087",
+    "name": "San Sossio Baronia",
+    "file": "/municipal-crests/064087.jpg"
+  },
+  {
+    "code": "064088",
+    "name": "Santa Lucia di Serino",
+    "file": "/municipal-crests/064088.png"
+  },
+  {
+    "code": "064089",
+    "name": "Sant'Andrea di Conza",
+    "file": "/municipal-crests/064089.png"
+  },
+  {
+    "code": "064090",
+    "name": "Sant'Angelo all'Esca",
+    "file": "/municipal-crests/064090.jpg"
+  },
+  {
+    "code": "064091",
+    "name": "Sant'Angelo a Scala",
+    "file": "/municipal-crests/064091.gif"
+  },
+  {
+    "code": "064092",
+    "name": "Sant'Angelo dei Lombardi",
+    "file": "/municipal-crests/064092.png"
+  },
+  {
+    "code": "064093",
+    "name": "Santa Paolina",
+    "file": "/municipal-crests/064093.png"
+  },
+  {
+    "code": "064095",
+    "name": "Santo Stefano del Sole",
+    "file": "/municipal-crests/064095.png"
+  },
+  {
+    "code": "064096",
+    "name": "Savignano Irpino",
+    "file": "/municipal-crests/064096.jpg"
+  },
+  {
+    "code": "064097",
+    "name": "Scampitella",
+    "file": "/municipal-crests/064097.jpg"
+  },
+  {
+    "code": "064098",
+    "name": "Senerchia",
+    "file": "/municipal-crests/064098.png"
+  },
+  {
+    "code": "064099",
+    "name": "Serino",
+    "file": "/municipal-crests/064099.jpg"
+  },
+  {
+    "code": "064100",
+    "name": "Sirignano",
+    "file": "/municipal-crests/064100.gif"
+  },
+  {
+    "code": "064101",
+    "name": "Solofra",
+    "file": "/municipal-crests/064101.gif"
+  },
+  {
+    "code": "064102",
+    "name": "Sorbo Serpico",
+    "file": "/municipal-crests/064102.png"
+  },
+  {
+    "code": "064103",
+    "name": "Sperone",
+    "file": "/municipal-crests/064103.jpg"
+  },
+  {
+    "code": "064104",
+    "name": "Sturno",
+    "file": "/municipal-crests/064104.jpg"
+  },
+  {
+    "code": "064105",
+    "name": "Summonte",
+    "file": "/municipal-crests/064105.gif"
+  },
+  {
+    "code": "064106",
+    "name": "Taurano",
+    "file": "/municipal-crests/064106.gif"
+  },
+  {
+    "code": "064107",
+    "name": "Taurasi",
+    "file": "/municipal-crests/064107.gif"
+  },
+  {
+    "code": "064108",
+    "name": "Teora",
+    "file": "/municipal-crests/064108.jpg"
+  },
+  {
+    "code": "064109",
+    "name": "Torella dei Lombardi",
+    "file": "/municipal-crests/064109.png"
+  },
+  {
+    "code": "064110",
+    "name": "Torre Le Nocelle",
+    "file": "/municipal-crests/064110.jpg"
+  },
+  {
+    "code": "064111",
+    "name": "Torrioni",
+    "file": "/municipal-crests/064111.gif"
+  },
+  {
+    "code": "064112",
+    "name": "Trevico",
+    "file": "/municipal-crests/064112.jpg"
+  },
+  {
+    "code": "064113",
+    "name": "Tufo",
+    "file": "/municipal-crests/064113.jpg"
+  },
+  {
+    "code": "064114",
+    "name": "Vallata",
+    "file": "/municipal-crests/064114.jpg"
+  },
+  {
+    "code": "064115",
+    "name": "Vallesaccarda",
+    "file": "/municipal-crests/064115.gif"
+  },
+  {
+    "code": "064116",
+    "name": "Venticano",
+    "file": "/municipal-crests/064116.png"
+  },
+  {
+    "code": "064117",
+    "name": "Villamaina",
+    "file": "/municipal-crests/064117.png"
+  },
+  {
+    "code": "064118",
+    "name": "Villanova del Battista",
+    "file": "/municipal-crests/064118.png"
+  },
+  {
+    "code": "064119",
+    "name": "Volturara Irpina",
+    "file": "/municipal-crests/064119.png"
+  },
+  {
+    "code": "064120",
+    "name": "Zungoli",
+    "file": "/municipal-crests/064120.jpg"
+  },
+  {
+    "code": "064121",
+    "name": "Montoro",
+    "file": "/municipal-crests/064121.jpg"
+  }
+]
