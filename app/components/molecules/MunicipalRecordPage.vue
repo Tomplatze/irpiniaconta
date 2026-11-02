@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import LoadingStatus from '../atoms/LoadingStatus.vue';
 import MunicipalRecordDetails from './MunicipalRecordDetails.vue';
 interface RecordIndexItem { id:string; title:string; reference?:string }
 interface RecordIndex { total:number; records:RecordIndexItem[] }
@@ -7,7 +8,7 @@ const search = ref('');
 const pageSize = 10;
 const visibleCount = ref(pageSize);
 const openRecords = reactive(new Set<string>());
-const {data:index,error,status} = await useFetch<RecordIndex>('/api/municipal-records', {
+const {data:index,error,status} = useFetch<RecordIndex>('/api/municipal-records', {
   query:computed(()=>({code:props.code,group:props.group,view:'index'})),
   key:`municipal-record-index-${props.code}-${props.group}`,
 });
@@ -31,7 +32,7 @@ watch(() => [props.code,props.group], () => { search.value=''; visibleCount.valu
   <div class="municipal-records__content" :aria-busy="status==='pending'">
     <p class="municipal-records__note">Gli elenchi si basano sulle fonti indicate e potrebbero non essere completi. Mostriamo indirizzi e recapiti quando sono disponibili.</p>
     <p v-if="error" role="alert">Non è stato possibile caricare l’elenco. Chiudi e riapri la sezione per riprovare.</p>
-    <p v-else-if="status==='pending' && !index" role="status">Caricamento dell’elenco…</p>
+    <LoadingStatus v-else-if="status==='pending' && !index" label="Caricamento dell’elenco…" />
     <template v-else-if="index">
       <p v-if="index.total===0" class="municipal-records__empty">Nessun dettaglio disponibile nella raccolta per questo comune.</p>
       <template v-else>
