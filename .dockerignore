@@ -1,0 +1,5 @@
+# PostgreSQL uses an upstream image; no application build context is needed.
+# Deny local evidence and secrets if an image build is added later.
+**
+!compose.yaml
+!.dockerignore

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "purpose": "Verify historical-weather alternatives before municipal integration",
+  "reference_point": {
+    "latitude": 40.91,
+    "longitude": 14.79,
+    "meaning": "Regional technical probe only; not a reviewed municipal representative point"
+  },
+  "providers": [
+    {
+      "id": "open_meteo_archive",
+      "publisher": "Open-Meteo / ECMWF",
+      "documentation_url": "https://open-meteo.com/en/docs/historical-weather-api",
+      "terms_url": "https://open-meteo.com/en/terms",
+      "probe_url": "https://archive-api.open-meteo.com/v1/archive?latitude=40.91&longitude=14.79&start_date=2025-01-01&end_date=2025-01-07&daily=temperature_2m_mean,precipitation_sum&models=era5&timezone=Europe%2FRome",
+      "filename": "open_meteo_era5_probe.json",
+      "data_license": "CC BY 4.0",
+      "free_service_boundary": "Non-commercial use only; advertising/promotional use requires reviewing commercial API access",
+      "integration_status": "candidate; no municipal values published",
+      "validated_model": "ERA5; all requested variables supported; 0.25 degree source grid",
+      "discarded_probe": "ERA5-Land returned null precipitation for all seven days; retained in raw acquisition history and not imputed."
+    },
+    {
+      "id": "nasa_power",
+      "publisher": "NASA POWER",
+      "documentation_url": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/",
+      "terms_url": "https://power.larc.nasa.gov/docs/faqs/data/",
+      "probe_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR&community=AG&longitude=14.79&latitude=40.91&start=20250101&end=20250107&format=JSON&time-standard=UTC",
+      "filename": "nasa_power_probe.json",
+      "data_license": "NASA POWER usage/citation policy; review actual source-specific terms",
+      "free_service_boundary": "Free public service; coarse meteorological model grid requires explicit representation limits",
+      "integration_status": "candidate; no municipal values published"
+    }
+  ]
+}

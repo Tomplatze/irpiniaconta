@@ -1,0 +1,21 @@
+.privacy-page { max-width: 760px; margin: 70px auto 110px; line-height: 1.7; }
+.privacy-page h1 { font-size: clamp(2.4rem, 6vw, 4.5rem); line-height: 1.05; letter-spacing: -.05em; }
+.privacy-page h2 { font-size: 1.35rem; margin: 0 0 12px; }
+.privacy-page section { border-top: 1px solid var(--line); padding: 28px 0; }
+.privacy-eyebrow, .consent-eyebrow { color: var(--forest); font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+.privacy-draft { padding: 18px; margin: 30px 0; border-left: 3px solid #a3731d; background: #f3ead7; }
+.privacy-preferences, .consent-actions button, .consent-close { font: inherit; cursor: pointer; }
+.privacy-preferences { padding: 12px 16px; border: 1px solid var(--forest); color: var(--forest); background: transparent; }
+.footer-preferences { padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; text-decoration: underline; cursor: pointer; }
+.consent-banner { position: fixed; z-index: 1000; right: 24px; bottom: 24px; width: min(490px, calc(100% - 48px)); max-height: calc(100dvh - 48px); overflow: auto; padding: 30px; border: 1px solid #aabdab; border-radius: 10px; background: #fbfaf4; color: var(--ink); box-shadow: 0 16px 48px #173d322b; }
+.consent-banner h2 { margin: 8px 40px 14px 0; color: var(--forest); font-size: 1.75rem; letter-spacing: -.035em; line-height: 1.15; }
+.consent-banner p { margin: 0 0 14px; font-size: 14px; line-height: 1.65; }
+.consent-banner .consent-eyebrow { color: var(--forest); font-size: 11px; }
+.consent-banner .consent-preview { padding: 8px 10px; border-left: 2px solid #a3731d; background: #f3ead7; font-size: 12px; }
+.consent-banner a { color: var(--forest); font-size: 13px; font-weight: 650; text-underline-offset: 3px; }
+.consent-close { position: absolute; right: 18px; top: 18px; width: 36px; height: 36px; border: 1px solid #aabdab; border-radius: 4px; color: var(--forest); background: transparent; font-size: 1.4rem; line-height: 1; }
+.consent-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.consent-actions button { flex: 1 1 160px; min-height: 46px; padding: 12px; border: 1px solid var(--forest); border-radius: 4px; background: var(--forest); color: white; font-size: 13px; font-weight: 700; }
+.consent-actions button:first-child { background: transparent; color: var(--forest); }
+.consent-banner :focus-visible, .privacy-preferences:focus-visible { outline: 3px solid #c28712; outline-offset: 3px; }
+@media (max-width: 600px) { .consent-banner { right: 12px; bottom: 12px; width: calc(100% - 24px); max-height: calc(100dvh - 24px); padding: 20px; } .privacy-page { margin-top: 40px; } }

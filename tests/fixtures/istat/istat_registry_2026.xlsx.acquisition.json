@@ -1,0 +1,11 @@
+{
+  "url": "https://www.istat.it/storage/codici-unita-amministrative/Elenco-comuni-italiani.xlsx",
+  "resolved_url": "https://www.istat.it/storage/codici-unita-amministrative/Elenco-comuni-italiani.xlsx",
+  "http_status": 200,
+  "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  "bytes": 1229843,
+  "sha256": "83842076860450f7e482daecea6b7a769f5f93d0bf5b0d48802b44896d7a26d5",
+  "retrieved_at": "2026-10-12T14:18:07.455754+00:00",
+  "filename": "istat_registry_2026.xlsx",
+  "method": "GET"
+}

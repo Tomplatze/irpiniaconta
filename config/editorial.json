@@ -1,0 +1,22 @@
+{
+  "principle": "Show the latest source publication and a small number of meaningful indicators; keep raw detail in the source catalogue",
+  "indicators": [
+    {"id":"population","label":"Abitanti","description":"Persone residenti nel comune. L'ultima pubblicazione disponibile è una stima ISTAT."},
+    {"id":"population_65_plus_share","label":"Abitanti con almeno 65 anni","description":"Percentuale dei residenti che hanno almeno 65 anni."},
+    {"id":"natural_balance","label":"Nascite meno decessi","description":"Differenza annuale tra persone nate e decedute. Un valore negativo indica più decessi che nascite."},
+    {"id":"foreign_migration_balance","label":"Saldo con l’estero","description":"Persone arrivate dall’estero meno persone trasferite all’estero nell’anno."},
+    {"id":"active_local_units","label":"Attività presenti sul territorio","description":"Unità locali attive. La fonte per i comuni irpini non è ancora disponibile nel prototipo."},
+    {"id":"irpef_income_mean","label":"Reddito medio dichiarato","description":"Reddito medio per dichiarazione con reddito complessivo, nell’anno fiscale indicato. Non è il reddito di ogni residente."},
+    {"id":"admin_historic_spending_per_person","label":"Spesa amministrativa per abitante","description":"Spesa storica per le funzioni amministrative comprese nella fonte OpenCivitas. Non rappresenta tutta la spesa comunale."},
+    {"id":"digital_allocated_eur","label":"Finanziamenti per il digitale","description":"Importi dei voucher assegnati o erogati nelle candidature PA Digitale. Non sono una misura della spesa già sostenuta."},
+    {"id":"digital_applications","label":"Candidature digitali finanziate","description":"Candidature con finanziamento assegnato o erogato. Una candidatura non coincide necessariamente con un progetto distinto."},
+    {"id":"agricultural_holdings","label":"Aziende agricole","description":"Aziende agricole con sede nel comune, censite da ISTAT. Il censimento disponibile è del 2020."},
+    {"id":"utilised_agricultural_area","label":"Terreni utilizzati in agricoltura","description":"Ettari utilizzati dalle aziende con sede nel comune; i terreni possono trovarsi anche fuori dal suo confine."},
+    {"id":"soil_consumed_pct","label":"Territorio occupato da costruzioni e infrastrutture","description":"Percentuale di suolo consumato secondo ISPRA: edifici, infrastrutture e altre coperture artificiali."},
+    {"id":"soil_net_change_ha","label":"Nuovo suolo consumato","description":"Variazione netta nell’intervallo annuale pubblicato da ISPRA. I valori negativi indicano un recupero netto di suolo."},
+    {"id":"province_castles_listed_records","label":"Castelli censiti","description":"Schede dei castelli nel catalogo provinciale associate al comune. Il catalogo non è necessariamente completo."},
+    {"id":"province_libraries_listed_records","label":"Biblioteche censite","description":"Schede delle biblioteche nel catalogo provinciale associate al comune; non equivale al numero di biblioteche oggi aperte."},
+    {"id":"state_school_units","label":"Scuole statali censite","description":"Unità scolastiche dell’anno scolastico indicato. Scuole e plessi amministrativi non coincidono sempre con edifici distinti."},
+    {"id":"pharmacy_location_count","label":"Sedi farmaceutiche","description":"Sedi con validità corrente nell’elenco ministeriale, comprese le tipologie di dispensari e succursali presenti nella fonte."}
+  ]
+}

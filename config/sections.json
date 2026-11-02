@@ -1,0 +1,2281 @@
+{
+  "schema_version": 1,
+  "principle": "Public latest measurements, graphical history, explicit source semantics and nulls. No automatic source refresh.",
+  "categories": [
+    {
+      "id": "demography",
+      "intro": "Persone, generazioni e cambiamenti",
+      "primary": "resident_population_history",
+      "headline": "population"
+    },
+    {
+      "id": "economy",
+      "intro": "Redditi, attività e accoglienza",
+      "primary": "irpef_income_mean",
+      "headline": "irpef_income_mean"
+    },
+    {
+      "id": "administration",
+      "intro": "Risorse per i servizi comunali",
+      "primary": "municipal_service_spending",
+      "headline": "municipal_service_spending"
+    },
+    {
+      "id": "investments",
+      "intro": "Progetti e finanziamenti sul territorio",
+      "primary": "pnrr_projects",
+      "headline": "pnrr_projects"
+    },
+    {
+      "id": "agriculture",
+      "intro": "Aziende e coltivazioni dell’Irpinia",
+      "primary": "agricultural_holdings",
+      "headline": "agricultural_holdings"
+    },
+    {
+      "id": "environment",
+      "intro": "Come usiamo e trasformiamo il territorio",
+      "primary": "soil_consumed_ha",
+      "headline": "soil_consumed_ha"
+    },
+    {
+      "id": "climate",
+      "intro": "Temperature e giornate estreme",
+      "primary": "annual_temperature",
+      "headline": "annual_temperature"
+    },
+    {
+      "id": "culture",
+      "intro": "Un patrimonio da esplorare",
+      "primary": "fortified_sites",
+      "headline": "fortified_sites"
+    },
+    {
+      "id": "services",
+      "intro": "Scuole, nidi e servizi vicini",
+      "primary": "nursery_coverage",
+      "headline": "nursery_coverage"
+    },
+    {
+      "id": "mobility",
+      "intro": "Abitare e muoversi in Irpinia",
+      "primary": "empty_dwellings",
+      "headline": "empty_dwellings"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "population",
+      "category": "demography",
+      "label": "Popolazione · ultima stima",
+      "description": "Ultima stima ISTAT dei residenti al 1° gennaio. Le stime restano distinte dai censimenti.",
+      "unit": "",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "core",
+        "indicator": "population",
+        "related_history": "resident_population_history",
+        "show_companion_history": true
+      }
+    },
+    {
+      "id": "resident_population_history",
+      "category": "demography",
+      "label": "Come cambia la popolazione",
+      "description": "Residenti al 31 dicembre: censimenti e rilevazioni ISTAT, con le annualità effettivamente disponibili e i codici territoriali pubblicati dalla fonte.",
+      "unit": "persons",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcss_popres_series_tv_1"
+        ],
+        "filters": {
+          "INDICATOR": "RESPOP_AV"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "natural_balance",
+      "category": "demography",
+      "label": "Nascite meno decessi",
+      "description": "Differenza annuale tra nati e morti. Un valore negativo indica più decessi che nascite.",
+      "unit": "",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "core",
+        "indicator": "natural_balance"
+      }
+    },
+    {
+      "id": "foreign_migration_balance",
+      "category": "demography",
+      "label": "Arrivi e partenze con l’estero",
+      "description": "Arrivati dall’estero meno trasferiti all’estero nell’anno; non comprende i trasferimenti tra comuni italiani.",
+      "unit": "",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "core",
+        "indicator": "foreign_migration_balance"
+      }
+    },
+    {
+      "id": "population_65_plus_share",
+      "category": "demography",
+      "label": "Residenti con almeno 65 anni",
+      "description": "Percentuale dei residenti stimati che hanno almeno 65 anni.",
+      "unit": "",
+      "aggregation": "weighted_mean",
+      "recipe": {
+        "handler": "core",
+        "indicator": "population_65_plus_share",
+        "weight_indicator": "population"
+      }
+    },
+    {
+      "id": "foreign_residents",
+      "category": "demography",
+      "label": "Residenti con cittadinanza straniera",
+      "description": "Persone residenti con cittadinanza straniera, secondo la stima ISTAT al 1° gennaio. Non indica quante persone sono nate all’estero o sono arrivate durante l’anno.",
+      "unit": "persons",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "foreign_residents",
+        "sources": ["istat-foreign-age-2026"]
+      }
+    },
+    {
+      "id": "private_households",
+      "category": "demography",
+      "label": "Famiglie residenti",
+      "description": "Famiglie anagrafiche private al 31 dicembre; le convivenze collettive sono escluse.",
+      "unit": "households",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcss_fam_pop_tv_1"
+        ],
+        "filters": {
+          "INDICATOR": "NPHH_AV",
+          "TIME_PERIOD": ["2020", "2021", "2022", "2023", "2024"]
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "irpef_income_mean",
+      "category": "economy",
+      "label": "Reddito medio dichiarato",
+      "description": "Reddito complessivo per dichiarazione con reddito. Importi nominali, non corretti per l’inflazione; non è il reddito di ogni abitante.",
+      "unit": "EUR/declarant",
+      "aggregation": "weighted_mean",
+      "recipe": {
+        "handler": "core",
+        "indicator": "irpef_income_mean",
+        "weight_indicator": "irpef_income_declarants"
+      }
+    },
+    {
+      "id": "asia_local_units",
+      "category": "economy",
+      "label": "Sedi delle attività economiche",
+      "description": "Unità locali delle imprese attive e addetti medi annui del registro statistico ASIA. Il totale ufficiale è usato una sola volta; i settori non sono sommati tra loro.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "0010"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "asia_employees",
+      "category": "economy",
+      "label": "Addetti nelle attività economiche",
+      "description": "Unità locali delle imprese attive e addetti medi annui del registro statistico ASIA. Il totale ufficiale è usato una sola volta; i settori non sono sommati tra loro.",
+      "unit": "persons",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LUEMPDAA",
+          "ECON_ACTIVITY_NACE_2007": "0010"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "tourism_beds",
+      "category": "economy",
+      "label": "Posti letto per i visitatori",
+      "description": "Posti letto delle strutture alberghiere ed extra-alberghiere. Le categorie totali sono sommate una sola volta. I vecchi comuni non riconciliati restano esclusi.",
+      "unit": "beds",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "tourism",
+        "sources": [
+          "istat-tourism-capacity-2002-2025"
+        ],
+        "measure": "beds"
+      }
+    },
+    {
+      "id": "tourism_facilities",
+      "category": "economy",
+      "label": "Strutture ricettive",
+      "description": "Alberghi e strutture extra-alberghiere censiti da ISTAT; non indica arrivi, presenze turistiche o occupazione delle camere.",
+      "unit": "facilities",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "tourism",
+        "sources": [
+          "istat-tourism-capacity-2002-2025"
+        ],
+        "measure": "number"
+      }
+    },
+    {
+      "id": "municipal_service_spending",
+      "category": "administration",
+      "label": "Spesa per i servizi comunali",
+      "description": "Spesa storica delle funzioni fondamentali nel perimetro OpenCivitas; non è l’intero bilancio. I valori segnalati come anomali o riservati non vengono pubblicati.",
+      "unit": "EUR",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "civitas-2023-ind-tot-01-it"
+        ],
+        "filters": {
+          "Indicatore/Determinante": "SPESA_STORICA"
+        },
+        "value": "Valore",
+        "number_format": "italian",
+        "flags": true
+      }
+    },
+    {
+      "id": "admin_historic_spending_per_person",
+      "category": "administration",
+      "label": "Spesa amministrativa per abitante",
+      "description": "Spesa delle funzioni amministrative OpenCivitas. La sintesi territoriale è la mediana dei comuni con dato, non una media per abitante dell’Irpinia.",
+      "unit": "EUR/resident",
+      "aggregation": "median",
+      "recipe": {
+        "handler": "core",
+        "indicator": "admin_historic_spending_per_person"
+      }
+    },
+    {
+      "id": "solidarity_fund",
+      "category": "administration",
+      "label": "Fondo di solidarietà comunale",
+      "description": "Dotazione finale FSC 2026. È un’assegnazione calcolata dalla fonte, non una misura degli incassi effettivi.",
+      "unit": "EUR",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "civitas-2026-var-fsc-1-2026-it"
+        ],
+        "filters": {
+          "Componenti di calcolo del fondo": "DOTAZIONE_FINALE_FSC"
+        },
+        "value": "Valore",
+        "number_format": "italian"
+      }
+    },
+    {
+      "id": "pnrr_projects",
+      "category": "investments",
+      "label": "Progetti PNRR sul territorio",
+      "description": "Progetti distinti per CUP e codice locale associati ai comuni. Un progetto che riguarda più comuni viene contato una sola volta nella sintesi territoriale.",
+      "unit": "projects",
+      "aggregation": "distinct",
+      "recipe": {
+        "handler": "distinct",
+        "sources": [
+          "pnrr-projects-20260613"
+        ],
+        "keys": [
+          "CUP",
+          "Codice Locale Progetto"
+        ],
+        "period": "2026-06-13"
+      }
+    },
+    {
+      "id": "cohesion_projects",
+      "category": "investments",
+      "label": "Progetti delle politiche di coesione",
+      "description": "Progetti localizzati sul territorio nel rilascio OpenCoesione di giugno 2026, distinti per codice progetto. Le date di aggiornamento dei singoli record non sono uno storico.",
+      "unit": "projects",
+      "aggregation": "distinct",
+      "recipe": {
+        "handler": "distinct",
+        "sources": [
+          "opencoesione-campania-20260630"
+        ],
+        "keys": [
+          "COD_LOCALE_PROGETTO"
+        ],
+        "period": "2026-06-30"
+      }
+    },
+    {
+      "id": "digital_allocated_eur",
+      "category": "investments",
+      "label": "Finanziamenti per il digitale",
+      "description": "Voucher PA Digitale assegnati o erogati alle candidature comunali. Non equivale alla spesa già sostenuta.",
+      "unit": "",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "core",
+        "indicator": "digital_allocated_eur"
+      }
+    },
+    {
+      "id": "agricultural_holdings",
+      "category": "agriculture",
+      "label": "Aziende agricole",
+      "description": "Aziende con sede nel comune censite nel 2020. Il confronto storico usa un censimento separato, senza ricostruire Montoro.",
+      "unit": "",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "core",
+        "indicator": "agricultural_holdings",
+        "related_history": "historic_agricultural_holdings",
+        "show_companion_history": true
+      }
+    },
+    {
+      "id": "utilised_agricultural_area",
+      "category": "agriculture",
+      "label": "Terreni utilizzati dalle aziende",
+      "description": "Ettari di superficie agricola utilizzata attribuiti alla sede dell’azienda nel censimento 2020; i terreni possono trovarsi in altri comuni.",
+      "unit": "",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "core",
+        "indicator": "utilised_agricultural_area",
+        "related_history": "historic_utilised_agricultural_area",
+        "show_companion_history": true
+      }
+    },
+    {
+      "id": "vineyard_area",
+      "category": "agriculture",
+      "label": "Superficie a vigneto",
+      "description": "Ettari a vigneto delle aziende agricole con sede nel comune, censimento 2020. Non sono volumi di vino prodotti.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "VINEY"
+        },
+        "value": "value",
+        "number_format": "native",
+        "related_history": "historic_vineyard_area",
+        "show_companion_history": true
+      }
+    },
+    {
+      "id": "olive_area",
+      "category": "agriculture",
+      "label": "Superficie a oliveto",
+      "description": "Ettari a oliveto delle aziende agricole con sede nel comune, censimento 2020.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "OLIV"
+        },
+        "value": "value",
+        "number_format": "native",
+        "related_history": "historic_olive_area",
+        "show_companion_history": true
+      }
+    },
+    {
+      "id": "historic_agricultural_holdings",
+      "category": "agriculture",
+      "label": "Aziende agricole: i censimenti storici",
+      "description": "Censimenti 1982–2010: aziende totali con le dimensioni di confronto storico. Montoro non è ricostruito dai comuni precedenti. Le definizioni e i campi di osservazione dei censimenti possono cambiare.",
+      "unit": "holdings",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-historical-agriculture-1982-2010"
+        ],
+        "filters": {
+          "TIPO_DATO5": "HO",
+          "TIPO_DATO5_DETT": "ALL",
+          "ZONA_ALTIM": "TOT",
+          "COLTIV_CONDUZ": "TOT",
+          "TIT_POSSESSO": "ALL",
+          "CLASSE_SAU_A": "TOT",
+          "CLASSE_SAU_B": "TOT",
+          "UTILTERR_A": "AREATOT",
+          "UTILTERR_B": "ALL",
+          "TIPO_ALLEVAMENTO": "ALL",
+          "MANODOPERA": "TSLF",
+          "DURATA": "TOTAL"
+        },
+        "value": "Value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "soil_consumed_ha",
+      "category": "environment",
+      "label": "Suolo trasformato",
+      "description": "Superficie artificiale osservata nel territorio, in ettari. Lo storico collegato mostra le variazioni annuali, non ricostruisce le superfici del passato.",
+      "unit": "",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "core",
+        "indicator": "soil_consumed_ha",
+        "related_history": "soil_net_change_ha"
+      }
+    },
+    {
+      "id": "soil_net_change_ha",
+      "category": "environment",
+      "label": "Nuovo suolo consumato ogni anno",
+      "description": "Variazione netta annuale: nuove superfici artificiali meno superfici ripristinate. Può essere negativa. Sono esclusi gli incrementi riferiti a intervalli pluriennali.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "core",
+        "indicator": "soil_net_change_ha"
+      }
+    },
+    {
+      "id": "soil_consumed_pct",
+      "category": "environment",
+      "label": "Quanto territorio è artificiale",
+      "description": "Percentuale di superficie artificiale. La sintesi territoriale è la mediana comunale, non la percentuale provinciale.",
+      "unit": "",
+      "aggregation": "median",
+      "recipe": {
+        "handler": "core",
+        "indicator": "soil_consumed_pct"
+      }
+    },
+    {
+      "id": "waste_separate_share",
+      "category": "environment",
+      "label": "Raccolta differenziata",
+      "description": "Quota dei rifiuti urbani raccolta separatamente. La sintesi è calcolata sul totale dei rifiuti dei soli comuni con valori validi. I dati aggregati di più comuni restano mancanti.",
+      "unit": "%",
+      "aggregation": "weighted_mean",
+      "recipe": {
+        "handler": "waste",
+        "sources": [
+          "ispra-waste-2024"
+        ],
+        "measure": "share"
+      }
+    },
+    {
+      "id": "waste_per_person",
+      "category": "environment",
+      "label": "Rifiuti prodotti per abitante",
+      "description": "Chilogrammi di rifiuti urbani per abitante nell’anno, calcolati con la popolazione della stessa fonte ISPRA.",
+      "unit": "kg/person",
+      "aggregation": "weighted_mean",
+      "recipe": {
+        "handler": "waste",
+        "sources": [
+          "ispra-waste-2024"
+        ],
+        "measure": "per_person"
+      }
+    },
+    {
+      "id": "annual_temperature",
+      "category": "climate",
+      "label": "Temperatura media annuale",
+      "description": "Rianalisi ERA5-Land: un punto di campionamento per comune, non una centralina né una media dell’intero territorio comunale. La sintesi territoriale è la media dei punti disponibili, senza pesare per superficie. Per gli anni prima del 2025 sono disponibili solo dieci punti.",
+      "unit": "°C",
+      "aggregation": "mean",
+      "recipe": {
+        "handler": "weather",
+        "sources": [
+          "openmeteo-history-first-10",
+          "openmeteo-2025-remaining-108"
+        ],
+        "measure": "temperature"
+      }
+    },
+    {
+      "id": "hot_days",
+      "category": "climate",
+      "label": "Giorni con massima di almeno 30 °C",
+      "description": "Rianalisi ERA5-Land: un punto di campionamento per comune, non una centralina né una media dell’intero territorio comunale. La sintesi territoriale è la media dei punti disponibili, senza pesare per superficie. Per gli anni prima del 2025 sono disponibili solo dieci punti.",
+      "unit": "days",
+      "aggregation": "mean",
+      "recipe": {
+        "handler": "weather",
+        "sources": [
+          "openmeteo-history-first-10",
+          "openmeteo-2025-remaining-108"
+        ],
+        "measure": "hot_days"
+      }
+    },
+    {
+      "id": "frost_days",
+      "category": "climate",
+      "label": "Giorni con minima sotto 0 °C",
+      "description": "Rianalisi ERA5-Land: un punto di campionamento per comune, non una centralina né una media dell’intero territorio comunale. La sintesi territoriale è la media dei punti disponibili, senza pesare per superficie. Per gli anni prima del 2025 sono disponibili solo dieci punti.",
+      "unit": "days",
+      "aggregation": "mean",
+      "recipe": {
+        "handler": "weather",
+        "sources": [
+          "openmeteo-history-first-10",
+          "openmeteo-2025-remaining-108"
+        ],
+        "measure": "frost_days"
+      }
+    },
+    {
+      "id": "fortified_sites",
+      "category": "culture",
+      "label": "Torri, castelli e fortificazioni",
+      "description": "Elementi del layer cartografico SIAT. Il catalogo non dichiara l’anno di rilevazione e non garantisce un censimento completo. Assenza di record non significa assenza di beni.",
+      "unit": "mapped sites",
+      "aggregation": "distinct",
+      "recipe": {
+        "handler": "distinct",
+        "sources": [
+          "siat-cultural-layer-2"
+        ],
+        "keys": [
+          "properties.OBJECTID"
+        ],
+        "period": "undated"
+      }
+    },
+    {
+      "id": "historic_centres",
+      "category": "culture",
+      "label": "Centri storici mappati",
+      "description": "Elementi SIAT associati ai comuni. Più elementi possono riguardare lo stesso centro; non è un elenco esaustivo e non è datato.",
+      "unit": "mapped sites",
+      "aggregation": "distinct",
+      "recipe": {
+        "handler": "distinct",
+        "sources": [
+          "siat-cultural-layer-8"
+        ],
+        "keys": [
+          "properties.OBJECTID"
+        ],
+        "period": "undated"
+      }
+    },
+    {
+      "id": "cultural_places",
+      "category": "culture",
+      "label": "Musei e luoghi della cultura",
+      "description": "Luoghi presenti nel catalogo MiC raccolto. Il periodo dei record non è dichiarato; l’assenza nel catalogo non vale zero.",
+      "unit": "listed places",
+      "aggregation": "distinct",
+      "recipe": {
+        "handler": "distinct",
+        "sources": [
+          "mic-cultural-places-campania"
+        ],
+        "keys": [
+          "place.@id"
+        ],
+        "period": "undated"
+      }
+    },
+    {
+      "id": "province_libraries_listed_records",
+      "category": "culture",
+      "label": "Biblioteche nel catalogo provinciale",
+      "description": "Record pubblicati dal catalogo provinciale, non un censimento completo. La data indica la raccolta del catalogo, non l’apertura o l’aggiornamento di ogni biblioteca.",
+      "unit": "",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "core",
+        "indicator": "province_libraries_listed_records"
+      }
+    },
+    {
+      "id": "state_school_sites",
+      "category": "services",
+      "label": "Sedi delle scuole statali",
+      "description": "Sedi fisiche scolastiche distinte dall’anagrafe MIM, riferite all’anno scolastico indicato. Non è il numero degli alunni.",
+      "unit": "",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "core",
+        "indicator": "state_school_sites"
+      }
+    },
+    {
+      "id": "nursery_coverage",
+      "category": "services",
+      "label": "Bambini raggiunti dai servizi di nido",
+      "description": "Utenti dei servizi di asilo nido rispetto ai residenti di 0–2 anni, secondo OpenCivitas. Non è il numero di posti disponibili. Sintesi territoriale: mediana dei comuni con dato.",
+      "unit": "%",
+      "aggregation": "median",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "civitas-2022-ind-fc80socnid-1",
+          "civitas-2023-ind-socnid-01-it"
+        ],
+        "filters": {
+          "Indicatore/Determinante": "COPERTURA_NID_NEW"
+        },
+        "value": "Valore",
+        "number_format": "italian",
+        "flags": true
+      }
+    },
+    {
+      "id": "pharmacy_location_count",
+      "category": "services",
+      "label": "Sedi delle farmacie",
+      "description": "Sedi registrate nel dataset del Ministero della Salute; non descrive turni, orari o effettiva apertura al momento della consultazione.",
+      "unit": "",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "core",
+        "indicator": "pharmacy_location_count"
+      }
+    },
+    {
+      "id": "graduate_residents",
+      "category": "services",
+      "label": "Residenti con titolo universitario",
+      "description": "Residenti di almeno 9 anni con laurea di primo livello o titolo superiore, al 31 dicembre. Le categorie dei titoli superiori sono usate senza sovrapposizioni.",
+      "unit": "persons",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcss_istr_lav_pen_2_tv_1"
+        ],
+        "filters": {
+          "INDICATOR": "RESPOP_AV",
+          "GENDER": "T",
+          "AGE_NOCLASS": "Y_GE9",
+          "EDU_ATTAIN": [
+            "BL",
+            "ML_RDD"
+          ]
+        },
+        "value": "value",
+        "number_format": "native",
+        "combine": true
+      }
+    },
+    {
+      "id": "registered_cars",
+      "category": "mobility",
+      "label": "Auto registrate",
+      "description": "Autovetture del parco veicolare ACI, anno 2024. Sono veicoli registrati, non flussi di traffico.",
+      "unit": "vehicles",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "aci-vehicles-2024"
+        ],
+        "filters": {},
+        "value": "AUTOVETTURE",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "empty_dwellings",
+      "category": "mobility",
+      "label": "Abitazioni non occupate",
+      "description": "Abitazioni convenzionali non occupate al 31 dicembre. Non indica automaticamente case abbandonate o disponibili sul mercato.",
+      "unit": "dwellings",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcss_abitazioni_tv_1"
+        ],
+        "filters": {
+          "INDICATOR": "NUM_UNOCC_DW_AV"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "all_dwellings",
+      "category": "mobility",
+      "label": "Abitazioni censite",
+      "description": "Abitazioni convenzionali censite al 31 dicembre.",
+      "unit": "dwellings",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcss_abitazioni_tv_1"
+        ],
+        "filters": {
+          "INDICATOR": "NUM_DW_AV"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "daily_commuters",
+      "category": "mobility",
+      "label": "Persone che si spostano ogni giorno",
+      "description": "Residenti che si spostano quotidianamente per studio o lavoro, dentro o fuori il comune. Il totale ufficiale è usato senza sommare sottocategorie.",
+      "unit": "persons",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-commuting_2018_2026"
+        ],
+        "filters": {
+          "INDICATOR": "RP_COM_DAY",
+          "GENDER": "T",
+          "LOC_DEST": "ALL",
+          "REAS_COMMUTING": "ALL"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "livestock_farms",
+      "category": "agriculture",
+      "label": "Aziende con allevamenti",
+      "description": "Aziende agricole con animali censite nel 2020. Il dato è attribuito al comune della sede aziendale.",
+      "unit": "holdings",
+      "breakdown_unit": "heads",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_cattle_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "HO_FM_LIVESTOCK_FIDIC2020",
+          "TYPE_OF_HERD": "ALL",
+          "HEADS_NUMBER": "TOT"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "organic_area",
+      "category": "agriculture",
+      "label": "Terreni coltivati con metodo biologico",
+      "description": "Superficie biologica delle aziende agricole censite nel 2020, in ettari. I terreni sono attribuiti al comune della sede aziendale e possono trovarsi altrove.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_org_crops"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARB",
+          "TYPE_OF_CROP": "ALL"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "organic_farms",
+      "category": "agriculture",
+      "label": "Aziende con coltivazioni biologiche",
+      "description": "Aziende che praticano coltivazioni biologiche, secondo il censimento agricolo 2020. Un dato non disponibile non significa che non vi siano aziende.",
+      "unit": "holdings",
+      "aggregation": "sum",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_org_crops"
+        ],
+        "filters": {
+          "DATA_TYPE": "HO_FM_ORGANIC",
+          "TYPE_OF_CROP": "ALL"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_livestock_cattle",
+      "category": "agriculture",
+      "label": "Bovini",
+      "description": "Capi rilevati nel censimento agricolo 2020 e attribuiti alla sede aziendale. I dati mancanti non equivalgono a zero.",
+      "unit": "heads",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "livestock_farms",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_cattle_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "HEADS_FIDIC2020",
+          "TYPE_OF_HERD": "TOTCATT",
+          "HEADS_NUMBER": "TOT"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_livestock_buffalo",
+      "category": "agriculture",
+      "label": "Bufalini",
+      "description": "Capi rilevati nel censimento agricolo 2020 e attribuiti alla sede aziendale. I dati mancanti non equivalgono a zero.",
+      "unit": "heads",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "livestock_farms",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_cattle_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "HEADS_FIDIC2020",
+          "TYPE_OF_HERD": "TOTBUFF",
+          "HEADS_NUMBER": "TOT"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_livestock_horses",
+      "category": "agriculture",
+      "label": "Equini",
+      "description": "Capi rilevati nel censimento agricolo 2020 e attribuiti alla sede aziendale. I dati mancanti non equivalgono a zero.",
+      "unit": "heads",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "livestock_farms",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_cattle_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "HEADS_FIDIC2020",
+          "TYPE_OF_HERD": "TOTHOR",
+          "HEADS_NUMBER": "TOT"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_livestock_sheep",
+      "category": "agriculture",
+      "label": "Ovini",
+      "description": "Capi rilevati nel censimento agricolo 2020 e attribuiti alla sede aziendale. I dati mancanti non equivalgono a zero.",
+      "unit": "heads",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "livestock_farms",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_cattle_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "HEADS_FIDIC2020",
+          "TYPE_OF_HERD": "TOTSH",
+          "HEADS_NUMBER": "TOT"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_livestock_goats",
+      "category": "agriculture",
+      "label": "Caprini",
+      "description": "Capi rilevati nel censimento agricolo 2020 e attribuiti alla sede aziendale. I dati mancanti non equivalgono a zero.",
+      "unit": "heads",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "livestock_farms",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_cattle_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "HEADS_FIDIC2020",
+          "TYPE_OF_HERD": "TOTG",
+          "HEADS_NUMBER": "TOT"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_livestock_pigs",
+      "category": "agriculture",
+      "label": "Suini",
+      "description": "Capi rilevati nel censimento agricolo 2020 e attribuiti alla sede aziendale. I dati mancanti non equivalgono a zero.",
+      "unit": "heads",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "livestock_farms",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_cattle_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "HEADS_FIDIC2020",
+          "TYPE_OF_HERD": "TOTPIG",
+          "HEADS_NUMBER": "TOT"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_livestock_poultry",
+      "category": "agriculture",
+      "label": "Avicoli",
+      "description": "Capi rilevati nel censimento agricolo 2020 e attribuiti alla sede aziendale. I dati mancanti non equivalgono a zero.",
+      "unit": "heads",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "livestock_farms",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_cattle_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "HEADS_FIDIC2020",
+          "TYPE_OF_HERD": "TOTPOU",
+          "HEADS_NUMBER": "TOT"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_livestock_rabbits",
+      "category": "agriculture",
+      "label": "Conigli",
+      "description": "Capi rilevati nel censimento agricolo 2020 e attribuiti alla sede aziendale. I dati mancanti non equivalgono a zero.",
+      "unit": "heads",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "livestock_farms",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_cattle_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "HEADS_FIDIC2020",
+          "TYPE_OF_HERD": "TOTRAB",
+          "HEADS_NUMBER": "TOT"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_organic_vines",
+      "category": "agriculture",
+      "label": "Vigneti",
+      "description": "Superficie coltivata con metodo biologico attribuita alla sede dell’azienda nel censimento 2020. Le categorie possono sovrapporsi e non vanno sommate.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "organic_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_org_crops"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARB",
+          "TYPE_OF_CROP": "VINEY"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_organic_olives",
+      "category": "agriculture",
+      "label": "Oliveti",
+      "description": "Superficie coltivata con metodo biologico attribuita alla sede dell’azienda nel censimento 2020. Le categorie possono sovrapporsi e non vanno sommate.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "organic_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_org_crops"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARB",
+          "TYPE_OF_CROP": "OLIV"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_organic_fruit",
+      "category": "agriculture",
+      "label": "Fruttiferi",
+      "description": "Superficie coltivata con metodo biologico attribuita alla sede dell’azienda nel censimento 2020. Le categorie possono sovrapporsi e non vanno sommate.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "organic_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_org_crops"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARB",
+          "TYPE_OF_CROP": "FRUIT"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_organic_citrus",
+      "category": "agriculture",
+      "label": "Agrumi",
+      "description": "Superficie coltivata con metodo biologico attribuita alla sede dell’azienda nel censimento 2020. Le categorie possono sovrapporsi e non vanno sommate.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "organic_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_org_crops"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARB",
+          "TYPE_OF_CROP": "CITRFR"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_organic_cereals",
+      "category": "agriculture",
+      "label": "Cereali",
+      "description": "Superficie coltivata con metodo biologico attribuita alla sede dell’azienda nel censimento 2020. Le categorie possono sovrapporsi e non vanno sommate.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "organic_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_org_crops"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARB",
+          "TYPE_OF_CROP": "CEREAG"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_organic_pulses",
+      "category": "agriculture",
+      "label": "Legumi secchi",
+      "description": "Superficie coltivata con metodo biologico attribuita alla sede dell’azienda nel censimento 2020. Le categorie possono sovrapporsi e non vanno sommate.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "organic_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_org_crops"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARB",
+          "TYPE_OF_CROP": "DRPUL"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_organic_potatoes",
+      "category": "agriculture",
+      "label": "Patate",
+      "description": "Superficie coltivata con metodo biologico attribuita alla sede dell’azienda nel censimento 2020. Le categorie possono sovrapporsi e non vanno sommate.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "organic_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_org_crops"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARB",
+          "TYPE_OF_CROP": "POTAT"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_organic_vegetables",
+      "category": "agriculture",
+      "label": "Ortaggi",
+      "description": "Superficie coltivata con metodo biologico attribuita alla sede dell’azienda nel censimento 2020. Le categorie possono sovrapporsi e non vanno sommate.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "organic_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_org_crops"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARB",
+          "TYPE_OF_CROP": "VEGFR"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_organic_temporary_grass",
+      "category": "agriculture",
+      "label": "Prati temporanei",
+      "description": "Superficie coltivata con metodo biologico attribuita alla sede dell’azienda nel censimento 2020. Le categorie possono sovrapporsi e non vanno sommate.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "organic_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_org_crops"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARB",
+          "TYPE_OF_CROP": "TGRA"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_organic_permanent_grass",
+      "category": "agriculture",
+      "label": "Prati e pascoli permanenti",
+      "description": "Superficie coltivata con metodo biologico attribuita alla sede dell’azienda nel censimento 2020. Le categorie possono sovrapporsi e non vanno sommate.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "organic_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_org_crops"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARB",
+          "TYPE_OF_CROP": "PGRAPM"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_organic_industrial",
+      "category": "agriculture",
+      "label": "Coltivazioni industriali",
+      "description": "Superficie coltivata con metodo biologico attribuita alla sede dell’azienda nel censimento 2020. Le categorie possono sovrapporsi e non vanno sommate.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "organic_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_org_crops"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARB",
+          "TYPE_OF_CROP": "CROPIN"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_organic_other",
+      "category": "agriculture",
+      "label": "Altre colture biologiche",
+      "description": "Superficie coltivata con metodo biologico attribuita alla sede dell’azienda nel censimento 2020. Le categorie possono sovrapporsi e non vanno sommate.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "organic_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_org_crops"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARB",
+          "TYPE_OF_CROP": "CROTHBIO"
+        },
+        "value": "value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "historic_utilised_agricultural_area",
+      "category": "agriculture",
+      "label": "Superficie agricola utilizzata: i censimenti storici",
+      "description": "Ettari di superficie agricola utilizzata nei censimenti 1982–2010, attribuiti alla sede aziendale. Montoro non è ricostruito dai comuni precedenti. Lo storico resta separato dal censimento 2020: definizioni e campi di osservazione possono cambiare.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_history",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-historical-agriculture-1982-2010"
+        ],
+        "filters": {
+          "TIPO_DATO5": "ARU",
+          "TIPO_DATO5_DETT": "ALL",
+          "ZONA_ALTIM": "TOT",
+          "COLTIV_CONDUZ": "TOT",
+          "TIT_POSSESSO": "ALL",
+          "CLASSE_SAU_A": "TOT",
+          "CLASSE_SAU_B": "TOT",
+          "UTILTERR_A": "AREATOT",
+          "UTILTERR_B": "ALL",
+          "TIPO_ALLEVAMENTO": "ALL",
+          "MANODOPERA": "TSLF",
+          "DURATA": "TOTAL"
+        },
+        "value": "Value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "historic_vineyard_area",
+      "category": "agriculture",
+      "label": "Vigneti: i censimenti storici",
+      "description": "Ettari di superficie a vigneto nei censimenti 1982–2010, attribuiti alla sede aziendale. Montoro non è ricostruito. Lo storico resta separato dal censimento 2020: definizioni e campi di osservazione possono cambiare.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_history",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-historical-agriculture-1982-2010"
+        ],
+        "filters": {
+          "TIPO_DATO5": "AR",
+          "TIPO_DATO5_DETT": "WC",
+          "ZONA_ALTIM": "TOT",
+          "COLTIV_CONDUZ": "TOT",
+          "TIT_POSSESSO": "ALL",
+          "CLASSE_SAU_A": "TOT",
+          "CLASSE_SAU_B": "TOT",
+          "UTILTERR_A": "VINEY",
+          "UTILTERR_B": "ALL",
+          "TIPO_ALLEVAMENTO": "ALL",
+          "MANODOPERA": "TSLF",
+          "DURATA": "TOTAL"
+        },
+        "value": "Value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "historic_olive_area",
+      "category": "agriculture",
+      "label": "Oliveti: i censimenti storici",
+      "description": "Ettari di superficie a oliveto nei censimenti 1982–2010, attribuiti alla sede aziendale. Montoro non è ricostruito. Lo storico resta separato dal censimento 2020: definizioni e campi di osservazione possono cambiare.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_history",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-historical-agriculture-1982-2010"
+        ],
+        "filters": {
+          "TIPO_DATO5": "AR",
+          "TIPO_DATO5_DETT": "WC",
+          "ZONA_ALTIM": "TOT",
+          "COLTIV_CONDUZ": "TOT",
+          "TIT_POSSESSO": "ALL",
+          "CLASSE_SAU_A": "TOT",
+          "CLASSE_SAU_B": "TOT",
+          "UTILTERR_A": "OLIV",
+          "UTILTERR_B": "ALL",
+          "TIPO_ALLEVAMENTO": "ALL",
+          "MANODOPERA": "TSLF",
+          "DURATA": "TOTAL"
+        },
+        "value": "Value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "historic_fruit_area",
+      "category": "agriculture",
+      "label": "Fruttiferi: i censimenti storici",
+      "description": "Ettari a fruttiferi nei censimenti 1982–2010, attribuiti alla sede aziendale. Montoro non è ricostruito. Lo storico resta separato dal censimento 2020: definizioni e campi di osservazione possono cambiare.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_history",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-historical-agriculture-1982-2010"
+        ],
+        "filters": {
+          "TIPO_DATO5": "AR",
+          "TIPO_DATO5_DETT": "WC",
+          "ZONA_ALTIM": "TOT",
+          "COLTIV_CONDUZ": "TOT",
+          "TIT_POSSESSO": "ALL",
+          "CLASSE_SAU_A": "TOT",
+          "CLASSE_SAU_B": "TOT",
+          "UTILTERR_A": "FRUIT",
+          "UTILTERR_B": "ALL",
+          "TIPO_ALLEVAMENTO": "ALL",
+          "MANODOPERA": "TSLF",
+          "DURATA": "TOTAL"
+        },
+        "value": "Value",
+        "number_format": "native"
+      }
+    },
+    {
+      "id": "breakdown_asia_b",
+      "category": "economy",
+      "label": "Estrazione di minerali",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "B"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_c",
+      "category": "economy",
+      "label": "Attività manifatturiere",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "C"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_d",
+      "category": "economy",
+      "label": "Energia elettrica e gas",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "D"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_e",
+      "category": "economy",
+      "label": "Acqua, rifiuti e risanamento",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "E"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_f",
+      "category": "economy",
+      "label": "Costruzioni",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "F"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_g",
+      "category": "economy",
+      "label": "Commercio e riparazione di veicoli",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "G"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_h",
+      "category": "economy",
+      "label": "Trasporto e magazzinaggio",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "H"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_i",
+      "category": "economy",
+      "label": "Alloggio e ristorazione",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "I"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_j",
+      "category": "economy",
+      "label": "Informazione e comunicazione",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "J"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_k",
+      "category": "economy",
+      "label": "Attività finanziarie e assicurative",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "K"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_l",
+      "category": "economy",
+      "label": "Attività immobiliari",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "L"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_m",
+      "category": "economy",
+      "label": "Attività professionali, scientifiche e tecniche",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "M"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_n",
+      "category": "economy",
+      "label": "Noleggio e servizi alle imprese",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "N"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_p",
+      "category": "economy",
+      "label": "Istruzione",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "P"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_q",
+      "category": "economy",
+      "label": "Sanità e assistenza sociale",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "Q"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_r",
+      "category": "economy",
+      "label": "Attività artistiche, sportive e ricreative",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "R"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_asia_s",
+      "category": "economy",
+      "label": "Altre attività di servizi",
+      "description": "Sedi operative classificate nel settore ATECO indicato.",
+      "unit": "local units",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "asia_local_units",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-183_285_df_dica_asiaulp_3"
+        ],
+        "filters": {
+          "DATA_TYPE": "LU",
+          "ECON_ACTIVITY_NACE_2007": "S"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_arland",
+      "category": "agriculture",
+      "label": "Seminativi",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "ARLAND"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_arlano",
+      "category": "agriculture",
+      "label": "Altri seminativi",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "ARLANO"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_cereals",
+      "category": "agriculture",
+      "label": "Cereali",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "CEREALS"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_cropin",
+      "category": "agriculture",
+      "label": "Coltivazioni industriali",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "CROPIN"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_falland",
+      "category": "agriculture",
+      "label": "Terreni a riposo",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "FALLAND"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_fruit",
+      "category": "agriculture",
+      "label": "Fruttiferi, frutta a guscio e piccoli frutti",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "FRUIT"
+        },
+        "value": "value",
+        "related_history": "historic_fruit_area",
+        "show_companion_history": true
+      }
+    },
+    {
+      "id": "breakdown_crops_kitgar",
+      "category": "agriculture",
+      "label": "Orti familiari",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "KITGAR"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_oliv",
+      "category": "agriculture",
+      "label": "Oliveti",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "OLIV"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_pcrops",
+      "category": "agriculture",
+      "label": "Coltivazioni permanenti",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "PCROPS"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_pgrapm",
+      "category": "agriculture",
+      "label": "Prati permanenti e pascoli",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "PGRAPM"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_potat",
+      "category": "agriculture",
+      "label": "Patate",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "POTAT"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_tgra",
+      "category": "agriculture",
+      "label": "Prati temporanei",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "TGRA"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_vegfr",
+      "category": "agriculture",
+      "label": "Ortaggi freschi e meloni",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "VEGFR"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_viney",
+      "category": "agriculture",
+      "label": "Vigneti",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "VINEY"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_arland_vegco",
+      "category": "agriculture",
+      "label": "Seminativi e orti protetti",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "ARLAND_VEGCO"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_drpul",
+      "category": "agriculture",
+      "label": "Legumi secchi",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "DRPUL"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_pcroo",
+      "category": "agriculture",
+      "label": "Altre coltivazioni permanenti",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "PCROO"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_seedl_seeds",
+      "category": "agriculture",
+      "label": "Sementi e piantine",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "SEEDL_SEEDS"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_agrcult",
+      "category": "agriculture",
+      "label": "Agrumi",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "AGRCULT"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_beets",
+      "category": "agriculture",
+      "label": "Barbabietola da zucchero",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "BEETS"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_flow",
+      "category": "agriculture",
+      "label": "Fiori e piante ornamentali",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "FLOW"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_fodr",
+      "category": "agriculture",
+      "label": "Radici foraggere",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "FODR"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_nurse",
+      "category": "agriculture",
+      "label": "Vivai",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "NURSE"
+        },
+        "value": "value"
+      }
+    },
+    {
+      "id": "breakdown_crops_pcrog",
+      "category": "agriculture",
+      "label": "Coltivazioni permanenti in serra",
+      "description": "Superficie attribuita alla sede aziendale nel censimento agricolo 2020. Le categorie possono essere gerarchiche e sovrapposte.",
+      "unit": "ha",
+      "aggregation": "sum",
+      "presentation_role": "supporting_breakdown",
+      "breakdown_parent": "utilised_agricultural_area",
+      "recipe": {
+        "handler": "filtered",
+        "sources": [
+          "istat-df_dcat_censagric2020_crops_all"
+        ],
+        "filters": {
+          "DATA_TYPE": "ARU",
+          "TYPE_OF_CROP": "PCROG"
+        },
+        "value": "value"
+      }
+    }
+  ]
+}

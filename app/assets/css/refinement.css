@@ -1,0 +1,149 @@
+/* Shared spatial hierarchy for public stories, municipality profiles and supporting pages. */
+body { font-variant-numeric: lining-nums; }
+.portal-header .brand { font-weight: 450; letter-spacing: -1.2px; }
+.portal-header .brand strong { font-weight: 800; }
+.portal-header nav a { font-weight: 550; }
+.territory-introduction h1 { font-size: clamp(44px,5.2vw,72px); font-weight: 750; line-height: 1.08; letter-spacing: -3.5px; }
+.territory-introduction h1 em,.hero-title-sub { font-style: normal; font-weight: inherit; }
+.portal-main .territory-lead { font-size: 15px; line-height: 1.8; }
+.territory-map { border-radius: 10px; border: 1px solid #dfe5d7; background: radial-gradient(ellipse at 25% 0%,#f7f8ee,#e8eee1); padding: 24px; }
+.territory-highlights { border: 0; gap: 14px; }
+.territory-highlights a,.territory-highlights a:first-child { padding: 25px; border: 1px solid var(--line); border-radius: 8px; background: #ffffff40; }
+.territory-highlights a:last-child { border: 1px solid var(--line); }
+.territory-highlights a:hover { background: var(--surface); border-color: #b6c9b7; }
+.territory-highlights strong { font-weight: 650; font-size: clamp(27px,3vw,41px); letter-spacing: -1.6px; line-height: 1.2; }
+.territory-highlights small { display: block; font-size: 11px; margin-top: 5px; }
+.territory-page .theme-toolbar h2 { font-size: clamp(28px,3vw,39px); font-weight: 700; letter-spacing: -1.5px; }
+.territory-page .chapter-heading h2 { font-weight: 700; font-size: clamp(25px,2.7vw,35px); letter-spacing: -1.2px; }
+.chapter-number { font-weight: 700; color: #a5b9a8; font-size: 45px; }
+.chapter-heading { min-height: 126px; gap: 20px; padding-bottom: 20px; }
+.chapter-illustration { width: 150px; height: 120px; }
+.metric-story { border-radius: 10px; border-color: #dfe4d8; box-shadow: 0 3px 0 #dfe4d829; padding: 28px; }
+.territory-page .story-heading h3 { font-size: 17px; line-height: 1.5; letter-spacing: -.35px; font-weight: 700; }
+.portal-main .story-number { font-weight: 650; font-size: clamp(33px,3.7vw,48px); letter-spacing: -1.8px; }
+.portal-main .metric-story--counter .story-number { font-size: 58px; font-weight: 750; letter-spacing: -2px; }
+.metric-story--counter { background: linear-gradient(130deg,#fffef9,#eef2e7); }
+.metric-story--percentage { background: linear-gradient(140deg,#fffef9,#f0f4e9); }
+.story-title > .topic-illustration { width: 60px; height: 48px; }
+.stat-illustration { width: 190px; height: 150px; opacity: 1; bottom: -15px; }
+.metric-story--counter .story-statistic { padding-block: 25px 52px; }
+.metric-story--counter .story-values:not(.story-values--multiple) { max-width: 62%; }
+.metric-story--counter .story-values--multiple .story-number { font-size: 31px; letter-spacing: -1px; }
+.metric-story--counter:has(.story-values--multiple) .stat-illustration { opacity: .24; }
+.story-number small { font-weight: 500; }
+.portal-main .story-source { border-top-style: dashed; }
+.portal-main .story-source summary { font-size: 11px; }
+.portal-main .topic-trigger { border-radius: 8px; }
+.topic-popover { border-radius: 10px; }
+.portal-main .topic-popover h2 { font-size: 25px; font-weight: 750; letter-spacing: -1px; }
+.topic-popover > a { border-radius: 8px; }
+.page-breadcrumb { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 30px; font-size: 11px; color: var(--muted); }
+.page-breadcrumb a { text-decoration: none; }
+.page-breadcrumb a:hover { text-decoration: underline; }
+.territory-page--municipality .territory-hero,.territory-page--topic .territory-hero { padding-top: 36px; }
+.territory-page--municipality .territory-introduction h1 { font-size: clamp(44px,5.8vw,76px); }
+.municipality-title-caption { display: block; font-size: clamp(18px,2vw,25px); color: var(--muted); line-height: 1.45; letter-spacing: -.7px; font-weight: 450; margin-top: 18px; }
+.portal-main .municipality-identity { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-top: 24px; font-size: 11px; }
+.municipality-identity > span:last-child { border-left: 1px solid #c6d0c0; padding-left: 10px; color: var(--muted); }
+.municipality-marker { color: var(--accent); font-size: 14px; }
+.municipality-switch { display: inline-block; margin-top: 24px; font-size: 12px; }
+.territory-page--municipality .territory-map { border-color: #b9c9b4; }
+.map-permanent-selection { pointer-events: none; }
+.map-selection-halo { stroke: var(--surface); stroke-width: 5; stroke-linejoin: round; }
+.map-selection-outline { stroke: var(--accent); stroke-width: 2.2; stroke-linejoin: round; }
+.municipal-area--selected { stroke: var(--accent); stroke-width: 2; }
+.directory-toolbar { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 20px; }
+.portal-main .directory-toolbar h2 { font: 700 clamp(25px,3vw,36px)/1.2 var(--font-body); letter-spacing: -1.1px; }
+.directory-toolbar label { width: 320px; max-width: 100%; }
+.directory-toolbar input { width: 100%; border-color: var(--line); border-radius: 6px; background: var(--surface); padding: 12px 16px; font-size: 14px; }
+.directory-count { color: var(--muted); font-size: 12px; margin-bottom: 16px; }
+.municipality-letter { display: grid; grid-template-columns: 50px minmax(0,1fr); gap: 20px; padding-block: 25px; border-top: 1px solid var(--line); }
+.municipality-letter > h3 { font-size: 35px; font-weight: 700; color: #94ac95; line-height: 1.4; }
+.municipality-letter ul { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; padding: 0; list-style: none; margin: 0; }
+.municipality-letter li { min-width: 0; }
+.municipality-letter a { display: flex; align-items: center; justify-content: space-between; gap: 10px; text-decoration: none; min-height: 87px; height: 100%; padding: 17px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; transition: border-color .15s,transform .15s; }
+.municipality-letter a:hover { border-color: #8fa98f; transform: translateY(-2px); }
+.municipality-letter a strong { display: block; font-size: 13px; font-weight: 650; line-height: 1.5; }
+.municipality-letter a small { display: block; color: var(--muted); font-size: 10px; margin-top: 4px; }
+.municipality-letter a > span:last-child { font-size: 17px; color: var(--accent); }
+.municipality-directory-name { flex: 1; min-width: 0; }
+.municipal-crest { flex: 0 0 auto; margin: 0; }
+.municipal-crest img { display: block; width: 52px; height: 66px; object-fit: contain; }
+.municipality-heading { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.municipality-heading h1 { min-width: 0; }
+.municipal-crest--detailed { display: flex; align-items: center; justify-content: center; width: 96px; height: 96px; border: 1px solid #dfe5d7; border-radius: 50%; background: #fff; overflow: hidden; }
+.municipal-crest--detailed img { width: 64px; height: 82px; }
+.municipality-index .editorial-art { background: transparent; padding: 0; }
+.municipality-index-map { width: 100%; }
+@media (max-width:900px) {
+  .municipality-letter ul { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .chapter-illustration { width: 105px; height: 84px; }
+}
+@media (max-width:760px) {
+  .territory-introduction h1 { font-size: 44px; letter-spacing: -2.2px; }
+  .territory-map { padding: 20px; border-radius: 10px; }
+  .municipality-heading { gap: 10px; }
+  .territory-highlights { gap: 10px; }
+  .territory-highlights a,.territory-highlights a:first-child { padding: 18px; }
+  .territory-highlights strong { font-size: 28px; }
+  .metric-story { border-radius: 10px; padding: 22px; }
+  .portal-main .story-number { font-size: 39px; letter-spacing: -1.6px; }
+  .portal-main .metric-story--counter .story-number { font-size: 49px; }
+  .metric-story--counter .story-values--multiple .story-number { font-size: 29px; }
+  .territory-page .chapter-heading h2 { font-size: 25px; }
+  .chapter-heading { gap: 12px; }
+  .chapter-number { font-size: 33px; }
+  .chapter-illustration { width: 88px; height: 75px; }
+  .stat-illustration { width: 150px; height: 120px; }
+  .territory-highlights { grid-template-columns: 1fr; }
+  .territory-highlights a,.territory-highlights a:first-child { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; border: 1px solid var(--line); gap: 8px 12px; }
+  .territory-highlights strong { grid-row: 1/3; grid-column: 2; }
+  .territory-highlights a > span:last-child { grid-column: 1; }
+  .territory-highlights small { font-size: 10px; text-align: right; }
+  .directory-toolbar { align-items: stretch; flex-direction: column; }
+  .directory-toolbar label { width: 100%; }
+  .municipality-letter { grid-template-columns: 26px minmax(0,1fr); gap: 12px; }
+  .municipality-letter > h3 { font-size: 26px; }
+  .municipality-letter ul { grid-template-columns: 1fr; }
+  .territory-page--municipality .territory-introduction h1 { font-size: 43px; }
+  .map-toolbar { align-items: start; flex-direction: column; }
+  .map-toolbar .eyebrow { font-size: 9px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .municipality-letter a { transition: none; }
+}
+.portal-header nav a.router-link-active,.portal-header nav a.is-active { box-shadow: 0 2px var(--forest); }
+.editorial-header h1 span { display: block; }
+
+/* Stronger contrast separates each topic from its data cards. */
+.territory-page .chapter-heading { min-height: 0; padding: 24px 28px; margin-bottom: 20px; border-radius: 10px; background: #174b3b; color: #fffef9; }
+.territory-page .chapter-heading .chapter-number { color: #c7d9c7; }
+.territory-page .chapter-heading .eyebrow { color: #d4e2d4; }
+.territory-page .chapter-heading h2 { color: #fffef9; }
+.municipal-metric-map a:focus-visible { outline: none; }
+.municipal-metric-map a:focus-visible .municipal-area { stroke: #bd5c37; stroke-width: 2.5; }
+@media (max-width: 760px) { .territory-page .chapter-heading { padding: 20px; } }
+
+/* Single-column stories avoid gaps between charts with different heights. */
+.territory-page .story-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.territory-page .metric-story { border-color: #bacabb; }
+.territory-page .metric-story--counter { background: #f2f6ed; }
+.portal-header .brand-beta { display: inline-flex; align-items: center; padding: 4px 8px; border: 1px solid #a9bfae; border-radius: 6px; color: #285c49; background: #e5eee1; font-size: 10px; font-weight: 750; line-height: 1; letter-spacing: .04em; text-transform: uppercase; }
+
+.story-row { min-width: 0; display: grid; grid-template-columns: minmax(0,1fr); gap: 16px; align-items: stretch; }
+@media (min-width: 761px) { .story-row--pair { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+.project-notice { max-width: 1288px; margin: 48px auto; padding: 30px clamp(20px,4vw,48px); display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 32px; border: 1px solid #245b49; border-radius: 10px; background: #174b3b; color: #f8fbf3; }
+.project-notice__eyebrow { margin: 0 0 10px; color: #c9dfca; font-size: 10px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+.project-notice h2 { margin: 0; max-width: 380px; color: #fffef9; font-size: clamp(23px,2.5vw,30px); line-height: 1.18; letter-spacing: -.04em; }
+.project-notice__art { display: block; width: min(100%, 270px); height: auto; margin-top: 18px; }
+.project-notice__content { display: grid; align-content: start; gap: 12px; font-size: 12px; line-height: 1.7; }
+.project-notice__content p { margin: 0; }
+.project-notice__content a { color: #fffef9; font-weight: 700; text-underline-offset: 3px; }
+.footer-credit { display: grid; gap: 7px; font-size: 11px; }
+.footer-open-source { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-top: 10px; color: var(--forest); font-weight: 700; }
+.footer-open-source small { flex-basis: 100%; color: var(--muted); font-size: 10px; font-weight: 400; }
+.footer-credit a { color: var(--forest); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.footer-credit--author { text-align: right; justify-items: end; }
+@media (max-width: 700px) { .footer-credit--author { text-align: left; justify-items: start; } }
+@media (max-width: 760px) { .project-notice { grid-template-columns: minmax(0,1fr); gap: 18px; margin: 32px 20px; padding: 24px 20px; } .project-notice__art { width: min(58%, 200px); margin: 12px 0 0 auto; } }
+.project-notice { width: calc(100% - 2 * clamp(20px,5vw,76px)); }

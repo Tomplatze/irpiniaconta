@@ -1,0 +1,76 @@
+# Dependencies and generated application output.
+node_modules/
+.nuxt/
+.output/
+.cache/
+.data/
+dist/
+coverage/
+
+# Python environments and caches.
+.venv/
+.venv-*/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Private configuration. Keep the documented template only.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Publications, acquired evidence and backups travel separately from code.
+/data/*
+!/data/README.md
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.dump
+*.backup
+
+# Local experiments, exports and generated verification evidence.
+/work/
+/.local/
+# Personal development instructions and automation remain local.
+/AGENTS.md
+/scripts/schedule.mjs
+/scripts/audit_sources.py
+/config/automation.json
+/docs/audits/
+/docs/ILLUSTRATIONS.md
+/docs/UPDATES.md
+/docs/VERIFICATION.md
+/docs/POSTGRESQL_MIGRATION.md
+/docs/REPOSITORY_CHECK.md
+/docs/PIPELINE_VERIFICATION.md
+/docs/SOURCE_SIMPLIFICATION_AUDIT.md
+/docs/DATA_CONSOLIDATION_2026-10-31.md
+/docs/DATA_FRESHNESS_REVIEW_2026-10-31.md
+/docs/IRPINIACONTA_UI.md
+/docs/MUNICIPAL_CRESTS_REVIEW.md
+/docs/MUNICIPAL_HISTORY_AVAILABILITY.md
+/docs/PRODUCT_DATA.md
+/docs/screenshots/
+/docs/*-preview.png
+/docs/*.json
+/docs/evidence/npm-audit-*.json
+*.log
+*.tsbuildinfo
+*.pending
+
+# Editor and operating-system files.
+.DS_Store
+._*
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

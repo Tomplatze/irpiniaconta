@@ -1,0 +1,71 @@
+{
+  "name": "atlante-irpinia",
+  "version": "0.9.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.11.0 <25 || >=26.0.0 <27"
+  },
+  "scripts": {
+    "dev": "nuxt dev --host 127.0.0.1",
+    "build": "nuxt build",
+    "start": "node --env-file-if-exists=.env scripts/start.mjs",
+    "typecheck": "nuxt typecheck",
+    "postinstall": "nuxt prepare",
+    "data:restore": "npm run db:seed",
+    "data:refresh": "node --env-file-if-exists=.env scripts/python.mjs etl.workflow update",
+    "data:offline": "node --env-file-if-exists=.env scripts/python.mjs etl.workflow update --offline",
+    "test:etl": "node --env-file-if-exists=.env scripts/python.mjs unittest discover -s tests -p test_*.py",
+    "test:api": "node --test tests/api.test.mjs",
+    "data:check": "node --env-file-if-exists=.env scripts/python.mjs etl.workflow update --due",
+    "test:history": "node --test tests/history.test.mjs",
+    "data:collect": "node --env-file-if-exists=.env scripts/python.mjs etl.collect",
+    "data:collect:offline": "node --env-file-if-exists=.env scripts/python.mjs etl.collect --offline",
+    "data:inventory": "node --env-file-if-exists=.env scripts/python.mjs etl.collection_report",
+    "test:collection": "node --test tests/collection-api.test.mjs",
+    "data:sections": "node --env-file-if-exists=.env scripts/python.mjs etl.sections",
+    "test:sections": "node --test tests/sections-api.test.mjs",
+    "db:up": "node --env-file-if-exists=.env scripts/db.mjs up",
+    "db:down": "node --env-file-if-exists=.env scripts/db.mjs down",
+    "db:restart": "node --env-file-if-exists=.env scripts/db.mjs restart",
+    "db:status": "node --env-file-if-exists=.env scripts/db.mjs status",
+    "db:migrate": "node --env-file-if-exists=.env scripts/python.mjs etl.database",
+    "db:migrate:sqlite": "node --env-file-if-exists=.env scripts/python.mjs etl.migrate_sqlite",
+    "db:seed": "node --env-file-if-exists=.env scripts/python.mjs etl.seed",
+    "data:import": "node --env-file-if-exists=.env scripts/python.mjs etl.workflow update",
+    "data:assets": "node --env-file-if-exists=.env scripts/python.mjs etl.publication_assets",
+    "data:validate": "node --env-file-if-exists=.env scripts/python.mjs etl.validate",
+    "test": "npm run test:etl && npm run test:api && npm run test:history && npm run test:collection && npm run test:sections && npm run test:territory && npm run test:visuals && npm run test:pages && npm run test:municipal-records && npm run test:flows",
+    "test:territory": "node --test tests/territory-api.test.mjs",
+    "test:visuals": "node --test tests/metric-visuals.test.mjs",
+    "test:pages": "node --test tests/pages.test.mjs",
+    "test:flows": "node --test tests/demographic-flows.test.mjs tests/demographic-flow-plot.test.mjs",
+    "data:pack": "node --env-file-if-exists=.env scripts/python.mjs etl.bundle pack",
+    "data:unpack": "node --env-file-if-exists=.env scripts/python.mjs etl.bundle unpack",
+    "repo:check": "node scripts/check-repository.mjs",
+    "data:plan": "node --env-file-if-exists=.env scripts/python.mjs etl.workflow plan",
+    "data:prepare": "node --env-file-if-exists=.env scripts/python.mjs etl.workflow prepare",
+    "data:update": "node --env-file-if-exists=.env scripts/python.mjs etl.workflow update",
+    "data:publish": "node --env-file-if-exists=.env scripts/python.mjs etl.workflow publish",
+    "data:rebuild": "node --env-file-if-exists=.env scripts/python.mjs etl.workflow update --rebuild",
+    "db:reader": "node --env-file-if-exists=.env scripts/python.mjs etl.access",
+    "test:municipal-records": "node --test tests/municipal-records.test.mjs"
+  },
+  "dependencies": {
+    "nuxt-gtag": "^5.0.0",
+    "pg": "8.23.1",
+    "vue": "^3.5.0",
+    "vue-router": "^5.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/pg": "8.23.1",
+    "nuxt": "4.6.1",
+    "typescript": "^5.9.0",
+    "vue-tsc": "^3.1.0"
+  },
+  "overrides": {
+    "simple-git": "4.0.2",
+    "@simple-git/argv-parser": "2.0.1"
+  }
+}

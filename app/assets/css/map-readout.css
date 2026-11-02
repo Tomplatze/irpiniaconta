@@ -1,0 +1,40 @@
+/* Map text stays in document flow, beneath the geographic shapes. */
+.municipal-metric-map .map-stage { padding: 20px 8px 12px; }
+.map-readouts { margin: 0 0 16px; }
+.map-readout-primary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 90px;
+  padding: 14px 16px;
+  background: #fffef9b3;
+  border: 1px solid #d8dfd0;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+}
+.map-readout-identity { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.map-readout-identity strong { font-size: 15px; line-height: 1.4; font-weight: 700; overflow-wrap: anywhere; }
+.map-readout-identity small { font-size: 10px; line-height: 1.5; color: var(--muted); }
+.map-readout-value { max-width: 52%; font-size: 13px; line-height: 1.5; text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.map-readout-exploration {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 12px;
+  min-height: 45px;
+  padding: 9px 3px 0;
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.map-readout-exploration strong { font-weight: 650; color: var(--ink); }
+.map-readout-exploration > span:not(.map-readout-hint) { margin-left: auto; }
+@media (max-width: 760px) {
+  .map-readout-primary { min-height: 94px; padding: 12px 13px; gap: 10px; }
+  .map-readout-identity strong { font-size: 14px; }
+  .map-readout-value { font-size: 12px; }
+}

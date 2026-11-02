@@ -1,0 +1,41 @@
+/* Native SVG variants share scales, inspection states and the existing source evidence. */
+.chart-zero-line { stroke: var(--muted); stroke-width: 1.2; }
+.chart-inspection-line { stroke: var(--forest); stroke-width: 1; stroke-dasharray: 3 5; opacity: .22; }
+.chart-series-line { stroke-linecap: round; stroke-linejoin: round; }
+.chart-bar { fill: var(--forest); opacity: .74; transition: opacity .15s; cursor: pointer; }
+.chart-bar--negative { fill: var(--accent); }
+.chart-bar--active,.chart-bar:hover { opacity: 1; }
+.chart-area-fill { pointer-events: none; }
+.overlay-chart--bars circle { fill: var(--surface); }
+.percentage-ring { width: 190px; height: 190px; flex-shrink: 0; overflow: visible; }
+.percentage-ring circle { fill: none; }
+.percentage-ring-track { stroke: var(--soft); stroke-width: 16; }
+.percentage-ring-value { stroke: var(--forest); stroke-width: 16; stroke-linecap: butt; }
+.percentage-ring-inner { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 5; }
+.percentage-ring-label { fill: var(--ink); font: 650 31px var(--font-body); letter-spacing: -1px; }
+.percentage-ring-unit { font-size: 17px; font-weight: 500; }
+.percentage-ring-denominator { fill: var(--muted); font: 12px var(--font-body); }
+.percentage-ring-key { display: flex; align-items: center; gap: 8px; }
+.percentage-ring-key i { width: 12px; height: 12px; background: var(--forest); border-radius: 50%; }
+.monthly-heatmap { margin: 22px 0; }
+.monthly-calendar { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 8px; }
+.portal-main .month-cell { min-width: 0; padding: 12px 4px; border: 1px solid transparent; background: var(--month-color); border-radius: 10px; color: #183d32; display: flex; flex-direction: column; align-items: center; gap: 9px; font-variant-numeric: tabular-nums; transition: transform .16s,border-color .16s; }
+.portal-main .month-cell:hover,.portal-main .month-cell--active { border-color: var(--forest); transform: translateY(-2px); }
+.month-label { font-size: 10px; font-weight: 650; text-transform: uppercase; letter-spacing: .7px; }
+.month-cell strong { font-size: 17px; font-weight: 650; letter-spacing: -.6px; }
+.month-unit { font-size: 10px; }
+.portal-main .month-cell--missing { background: repeating-linear-gradient(135deg,var(--soft),var(--soft) 4px,var(--surface) 4px,var(--surface) 6px); border: 1px dashed var(--line); color: var(--muted); }
+.monthly-inspection { display: flex; justify-content: space-between; gap: 16px; padding-block: 14px; margin-top: 12px; border-bottom: 1px solid var(--line); font-size: 12px; font-variant-numeric: tabular-nums; }
+.monthly-inspection span { color: var(--muted); }
+.monthly-temperature-key { display: flex; align-items: center; gap: 12px; margin-top: 14px; color: var(--muted); font-size: 11px; }
+.monthly-temperature-key i { flex: 1; height: 7px; border-radius: 8px; background: linear-gradient(90deg,#d3e1cc,#dfac91); }
+@media (max-width:600px) {
+  .percentage-ring { width: 170px; height: 170px; }
+  .monthly-calendar { gap: 5px; }
+  .portal-main .month-cell { padding-block: 11px; }
+  .month-cell strong { font-size: 14px; }
+  .month-label,.month-unit { font-size: 9px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .chart-bar,.portal-main .month-cell { transition: none; }
+}

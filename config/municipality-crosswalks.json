@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "code_changes": [
+    {
+      "source_code": "064061",
+      "source_name": "MONTORO INFERIORE",
+      "target_code": "064121",
+      "target_name": "Montoro",
+      "effective_from": "2013-12-03",
+      "relationship": "merged municipality",
+      "evidence_urls": [
+        "https://ebiblio.istat.it/digibib/Argomenti/UFI0283823_Argomenti10_I_sistemi_locali_del_lavoro1991%2BOCRottimizz.pdf",
+        "https://www.trasparenza.montoro.av.it/index.php?Itemid=437&id=206%3Ainfo-e-contatti&option=com_k2&view=item",
+        "https://www.istat.it/storage/codici-unita-amministrative/Elenco-comuni-italiani.xlsx"
+      ]
+    },
+    {
+      "source_code": "064062",
+      "source_name": "MONTORO SUPERIORE",
+      "target_code": "064121",
+      "target_name": "Montoro",
+      "effective_from": "2013-12-03",
+      "relationship": "merged municipality",
+      "evidence_urls": [
+        "https://ebiblio.istat.it/digibib/Argomenti/UFI0283823_Argomenti10_I_sistemi_locali_del_lavoro1991%2BOCRottimizz.pdf",
+        "https://www.trasparenza.montoro.av.it/index.php?Itemid=437&id=206%3Ainfo-e-contatti&option=com_k2&view=item",
+        "https://www.istat.it/storage/codici-unita-amministrative/Elenco-comuni-italiani.xlsx"
+      ]
+    }
+  ]
+}

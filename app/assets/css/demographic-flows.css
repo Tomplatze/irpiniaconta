@@ -1,0 +1,21 @@
+/* Paired event counts retain shared scales and an unambiguous reading direction. */
+.demographic-flow-chart { margin: 22px 0 0; }
+.demographic-flow-legend { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 12px; margin-bottom: 9px; }
+.demographic-flow-legend > span { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; }
+.flow-positive { color: var(--forest); }
+.flow-negative { color: var(--accent); }
+.demographic-flow-legend i,.demographic-flow-reading i { display: inline-block; height: 8px; width: 8px; border-radius: 2px; background: currentColor; flex-shrink: 0; }
+.demographic-flow-legend .flow-negative i,.demographic-flow-reading .flow-negative i { background: transparent; border: 2px solid currentColor; }
+.demographic-flow-chart svg { display: block; width: 100%; height: 292px; overflow: visible; }
+.demographic-flow-chart svg text { font: 12px var(--font-body); fill: var(--muted); }
+.demographic-flow-grid line { stroke: var(--line); stroke-width: 1; }
+.demographic-flow-zero { stroke: var(--muted); stroke-width: 1.5; }
+.demographic-flow-inspector { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 5; opacity: .3; }
+.demographic-flow-bar { fill: currentColor; opacity: .68; }
+.demographic-flow-bar--active { opacity: 1; }
+.demographic-flow-line { stroke-linecap: round; stroke-linejoin: round; }
+.demographic-flow-reading { display: flex; flex-wrap: wrap; gap: 9px 16px; min-height: 41px; align-items: baseline; border-top: 1px solid var(--line); padding-top: 14px; font-size: 12px; font-variant-numeric: tabular-nums; }
+.demographic-flow-reading > span { display: inline-flex; align-items: center; gap: 6px; }
+.demographic-flow-reading strong { font-weight: 700; }
+.demographic-flow-period { color: var(--muted); font-weight: 600; }
+.portal-main .demographic-flow-source-note { margin-top: 10px; font-size: 11px; line-height: 1.6; color: var(--muted); }

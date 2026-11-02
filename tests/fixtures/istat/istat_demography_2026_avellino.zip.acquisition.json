@@ -1,0 +1,11 @@
+{
+  "url": "https://demo.istat.it/data/posas/POSAS_2026_it_064_Avellino.zip",
+  "resolved_url": "https://demo.istat.it/data/posas/POSAS_2026_it_064_Avellino.zip",
+  "http_status": 200,
+  "content_type": "application/zip",
+  "bytes": 64709,
+  "sha256": "4fba78e9e0aec2e93d393d43b10859fa8168f00fbb29f9de9db72dc0bc615a7c",
+  "retrieved_at": "2026-10-12T14:18:01.767465+00:00",
+  "filename": "istat_demography_2026_avellino.zip",
+  "method": "GET"
+}
