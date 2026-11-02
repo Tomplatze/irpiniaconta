@@ -1,5 +1,7 @@
 # IrpiniaConta
 
+![IrpiniaConta: dati pubblici, persone e territorio](docs/images/irpiniaconta-cover.webp)
+
 IrpiniaConta è un progetto indipendente che racconta attraverso i dati i 118 comuni della provincia di Avellino. Nasce dal desiderio di rendere più facile conoscere il territorio: persone, imprese, ambiente, servizi e cambiamenti nel tempo.
 
 Il sito riunisce dati provenienti da fonti diverse e li presenta con mappe e grafici. È possibile esplorare l’Irpinia, aprire la pagina di un comune e confrontare più territori. Ogni indicatore conserva il periodo e la fonte; un dato mancante non viene trattato come zero.
