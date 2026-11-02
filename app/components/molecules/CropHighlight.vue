@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
 import type { TerritoryMetric } from '../../../shared/sections';
 import { formatValue, statusLabel, unitLabel } from '../../utils/presentation';
 import { historicalDescription, historyScope, summaryDescription } from '../../utils/editorialCopy';
@@ -35,6 +36,6 @@ const change = computed(() => {
       <p v-if="change" class="story-change"><strong>{{ change.value>0 ? '+' : '' }}{{ formatValue(change.value) }}%</strong> dal {{ change.first }} al {{ change.last }} · nei dati mostrati</p>
     </template>
     <p v-else-if="historical" class="snapshot-note">Per questo territorio non abbiamo abbastanza dati degli anni precedenti per mostrare come è cambiato il valore.</p>
-    <details class="story-source"><summary>Significato e fonti del dato</summary><p>I terreni sono attribuiti alla sede aziendale e possono trovarsi in altri comuni. Il dato riguarda l’insieme della categoria, non singoli prodotti o produzioni certificate.</p><p v-if="historical">{{ historicalDescription(historical.metric.description) }}</p><section v-for="source in [...fruit.metric.sources, ...(historical?.metric.sources ?? [])]" :key="source.id" class="source-citation"><strong>{{ source.publisher }}</strong><a :href="source.url" target="_blank" rel="noreferrer">{{ source.title }} ↗</a></section></details>
+    <details class="story-source"><summary>Significato e fonti del dato</summary><p>I terreni sono attribuiti alla sede aziendale e possono trovarsi in altri comuni. Il dato riguarda l’insieme della categoria, non singoli prodotti o produzioni certificate.</p><p v-if="historical">{{ historicalDescription(historical.metric.description) }}</p><section v-for="source in [...fruit.metric.sources, ...(historical?.metric.sources ?? [])]" :key="source.id" class="source-citation"><strong>{{ source.publisher }}</strong><a :href="source.url" target="_blank" rel="noreferrer">{{ source.title }} <InterfaceIcon name="arrow-up-right" /></a></section></details>
   </article>
 </template>

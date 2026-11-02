@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
 import type { RunSummary, Catalogue } from '../../shared/catalogue';
 import EditorialHeader from '../components/molecules/EditorialHeader.vue';
 import SourceList from '../components/organisms/SourceList.vue';
@@ -23,7 +24,7 @@ useHead({ title: 'Aggiornamenti e qualità — IrpiniaConta' });
 
 <template>
   <div class="supporting-page updates-page">
-    <EditorialHeader eyebrow="La storia della raccolta" title="Dati curati," accent="nel tempo." description="Qui trovi i controlli registrati e lo stato delle fonti. La data del controllo non coincide necessariamente con l’anno a cui si riferiscono i dati." topic="updates"><NuxtLink to="/raccolta">Esplora le fonti ↗</NuxtLink></EditorialHeader>
+    <EditorialHeader eyebrow="La storia della raccolta" title="Dati curati," accent="nel tempo." description="Qui trovi i controlli registrati e lo stato delle fonti. La data del controllo non coincide necessariamente con l’anno a cui si riferiscono i dati." topic="updates"><NuxtLink to="/raccolta">Esplora le fonti <InterfaceIcon name="arrow-up-right" /></NuxtLink></EditorialHeader>
     <div class="editorial-figures"><div><strong>{{ runs?.length ?? '—' }}</strong><span>controlli registrati</span></div><div><strong>{{ catalogue ? ready : '—' }}</strong><span>fonti con dati disponibili</span></div><div><strong>{{ catalogue ? retained : '—' }}</strong><span>fonti per cui è stata conservata la versione precedente</span></div></div>
     <p class="supporting-notice"><strong>Gli aggiornamenti automatici sono in pausa.</strong> Se un aggiornamento non riesce, viene conservata l’ultima versione valida disponibile.</p>
     <section class="run-history" aria-labelledby="run-history-title">

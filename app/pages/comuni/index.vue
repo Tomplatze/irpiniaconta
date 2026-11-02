@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
 import type { SectionMap, SectionResponse } from '../../../shared/sections';
 import EditorialHeader from '../../components/molecules/EditorialHeader.vue';
 import MunicipalMetricMap from '../../components/molecules/MunicipalMetricMap.vue';
@@ -44,15 +45,15 @@ useSeoMeta({ description: 'Esplora i 118 comuni dell’Irpinia e scopri dati, ma
           <div v-if="headerSearchFocused && search.trim()" id="header-town-results" class="header-town-results">
             <p v-if="!municipalities.length" role="status">Nessun comune trovato.</p>
             <template v-else>
-              <NuxtLink v-for="town in municipalities.slice(0, 6)" :key="town.code" :to="`/comuni/${town.code}`">{{ town.name }} <span aria-hidden="true">↗</span></NuxtLink>
-              <a v-if="municipalities.length > 6" href="#elenco-comuni" @click="headerSearchFocused = false">Mostra tutti i {{ municipalities.length }} risultati ↓</a>
+              <NuxtLink v-for="town in municipalities.slice(0, 6)" :key="town.code" :to="`/comuni/${town.code}`">{{ town.name }} <span aria-hidden="true"><InterfaceIcon name="arrow-up-right" /></span></NuxtLink>
+              <a v-if="municipalities.length > 6" href="#elenco-comuni" @click="headerSearchFocused = false">Mostra tutti i {{ municipalities.length }} risultati <InterfaceIcon name="arrow-down" /></a>
             </template>
           </div>
         </div>
       </Teleport>
     </ClientOnly>
     <EditorialHeader eyebrow="Un territorio, tante storie" title="118 comuni." accent="Ognuno conta." description="Scegli un comune per aprire il suo ritratto: residenti, economia, servizi e paesaggio. La mappa conserva il contesto dell’Irpinia, ogni pagina mette al centro il suo territorio." topic="municipalities">
-      <a class="action-primary" href="#elenco-comuni">Trova il tuo comune ↓</a><NuxtLink to="/confronta">Confronta due comuni ↗</NuxtLink>
+      <a class="action-primary" href="#elenco-comuni">Trova il tuo comune <InterfaceIcon name="arrow-down" /></a><NuxtLink to="/confronta">Confronta due comuni <InterfaceIcon name="arrow-up-right" /></NuxtLink>
       <template #visual>
         <section v-if="map && publication" class="territory-map municipality-index-map" aria-label="Scegli un comune sulla mappa">
           <p class="eyebrow">La popolazione dei comuni</p>
@@ -69,7 +70,7 @@ useSeoMeta({ description: 'Esplora i 118 comuni dell’Irpinia e scopri dati, ma
         <p v-if="!municipalities.length && !error" class="empty-state">Nessun comune corrisponde alla ricerca. Prova con un altro nome o codice.</p>
         <section v-for="group in groups" :key="group.initial" class="municipality-letter" :aria-label="`Comuni con iniziale ${group.initial}`">
           <h3 aria-hidden="true">{{ group.initial }}</h3>
-          <ul><li v-for="town in group.towns" :key="town.code"><NuxtLink :to="`/comuni/${town.code}`"><MunicipalCrest :crest="crestsByCode.get(town.code)" :name="town.name" decorative /><span class="municipality-directory-name"><strong>{{ town.name }}</strong><small>ISTAT {{ town.code }}</small></span><span aria-hidden="true">↗</span></NuxtLink></li></ul>
+          <ul><li v-for="town in group.towns" :key="town.code"><NuxtLink :to="`/comuni/${town.code}`"><MunicipalCrest :crest="crestsByCode.get(town.code)" :name="town.name" decorative /><span class="municipality-directory-name"><strong>{{ town.name }}</strong><small>ISTAT {{ town.code }}</small></span><span aria-hidden="true"><InterfaceIcon name="arrow-up-right" /></span></NuxtLink></li></ul>
         </section>
       </div>
     </section>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
 import LoadingStatus from '../atoms/LoadingStatus.vue';
 import { formatPeriod } from '../../utils/presentation';
 interface RecordItem { id:string; title:string; period:string; publisher:string; sourceTitle:string; sourceUrl:string; fields:Array<{label:string;value:string}> }
@@ -18,8 +19,8 @@ function safeLink(value:string):string | null { try { const url = new URL(value)
     <LoadingStatus v-else-if="status==='pending' && !record" label="Caricamento del dettaglio…" />
     <template v-else-if="record">
       <p class="municipal-record__period">{{ periodLabel(record.period) }}</p>
-      <dl v-if="record.fields.length" class="municipal-record__fields"><div v-for="(field,index) in record.fields" :key="`${field.label}-${index}`"><dt>{{ field.label }}</dt><dd><a v-if="safeLink(field.value)" :href="safeLink(field.value)!" target="_blank" rel="noreferrer">{{ field.value }} ↗</a><template v-else>{{ field.value }}</template></dd></div></dl>
-      <a v-if="safeLink(record.sourceUrl)" class="municipal-record__source" :href="safeLink(record.sourceUrl)!" target="_blank" rel="noreferrer">{{ record.publisher }} · {{ record.sourceTitle }} ↗</a><span v-else class="municipal-record__source">{{ record.publisher }} · {{ record.sourceTitle }}</span>
+      <dl v-if="record.fields.length" class="municipal-record__fields"><div v-for="(field,index) in record.fields" :key="`${field.label}-${index}`"><dt>{{ field.label }}</dt><dd><a v-if="safeLink(field.value)" :href="safeLink(field.value)!" target="_blank" rel="noreferrer">{{ field.value }} <InterfaceIcon name="arrow-up-right" /></a><template v-else>{{ field.value }}</template></dd></div></dl>
+      <a v-if="safeLink(record.sourceUrl)" class="municipal-record__source" :href="safeLink(record.sourceUrl)!" target="_blank" rel="noreferrer">{{ record.publisher }} · {{ record.sourceTitle }} <InterfaceIcon name="arrow-up-right" /></a><span v-else class="municipal-record__source">{{ record.publisher }} · {{ record.sourceTitle }}</span>
     </template>
   </div>
 </template>

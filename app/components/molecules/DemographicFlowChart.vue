@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
 import type { DemographicFlow } from '../../../shared/demographicFlows';
 import type { SectionPoint } from '../../../shared/sections';
 import { useChartWidth } from '../../composables/useChartWidth';
@@ -43,7 +44,7 @@ function countLabel(point: SectionPoint | undefined): string {
 <template>
   <figure ref="figure" class="demographic-flow-chart" :class="`demographic-flow-chart--${flow.kind}`">
     <template v-if="plot.hasData">
-    <div class="demographic-flow-legend" aria-hidden="true"><span class="flow-positive"><i />{{ flow.kind==='natural' ? '↑ ' : '' }}{{ flow.positive.label }}</span><span class="flow-negative"><i />{{ flow.kind==='natural' ? '↓ ' : '' }}{{ flow.negative.label }}</span></div>
+    <div class="demographic-flow-legend" aria-hidden="true"><span class="flow-positive"><i /><InterfaceIcon v-if="flow.kind==='natural'" name="arrow-up" /> {{ flow.positive.label }}</span><span class="flow-negative"><i /><InterfaceIcon v-if="flow.kind==='natural'" name="arrow-down" /> {{ flow.negative.label }}</span></div>
     <svg :viewBox="`0 0 ${width} ${plot.height}`" role="group" tabindex="0" :aria-label="`${flow.positive.label} e ${flow.negative.label} negli anni. Conteggi di persone. ${flow.kind==='natural' ? 'Nati sopra lo zero e morti sotto lo zero, entrambi come conteggi positivi.' : 'Due linee di conteggi annuali sulla stessa scala da zero.'} Usa le frecce destra e sinistra per leggere entrambi i valori nello stesso anno.`" @pointermove="inspectPointer" @pointerleave="active=''" @keydown.left.prevent="step(-1)" @keydown.right.prevent="step(1)" @keydown.home.prevent="active=plot.periods[0]?.period ?? ''" @keydown.end.prevent="active=plot.periods.at(-1)?.period ?? ''">
       <defs><linearGradient v-for="component in plot.components" :id="`${gradientId}-${component.id}`" :key="component.id" :class="`flow-${component.id}`" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="currentColor" stop-opacity=".12" /><stop offset="100%" stop-color="currentColor" stop-opacity=".025" /></linearGradient></defs>
       <g v-for="(tick,index) in plot.ticks" :key="index" class="demographic-flow-grid"><line :x1="plot.left" :x2="plot.right" :y1="tick.y" :y2="tick.y" /><text :x="plot.left - 9" :y="tick.y + 4" text-anchor="end">{{ compact(tick.value) }}</text></g>

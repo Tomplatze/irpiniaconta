@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
 import type { TerritoryMetric } from '../../../shared/sections';
 import CategoryRadar from '../molecules/CategoryRadar.vue';
 import TopicIllustration from '../atoms/TopicIllustration.vue';
@@ -36,6 +37,6 @@ const groups = computed(() => definitions[props.kind].map(group => {
         <CategoryRadar :title="group.title" :entries="group.entries" :maximum="group.maximum" />
       </article>
     </div>
-    <p class="crop-profiles__note">Dove il dato manca, il disegno si interrompe. Per l’Irpinia è indicato il numero di comuni con dati disponibili; la scala cambia tra i gruppi. <a v-if="metric.breakdown?.[0]?.metric.sources[0]" :href="metric.breakdown[0].metric.sources[0]!.url" target="_blank" rel="noreferrer">Fonte: ISTAT, censimento agricolo ↗</a></p>
+    <p class="crop-profiles__note">Dove il dato manca, il disegno si interrompe. Per l’Irpinia è indicato il numero di comuni con dati disponibili; la scala cambia tra i gruppi. <a v-if="metric.breakdown?.[0]?.metric.sources[0]" :href="metric.breakdown[0].metric.sources[0]!.url" target="_blank" rel="noreferrer">Fonte: ISTAT, censimento agricolo <InterfaceIcon name="arrow-up-right" /></a></p>
   </section>
 </template>

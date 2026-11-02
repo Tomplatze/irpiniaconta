@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
 import type { TerritoryMetric } from '../../../shared/sections';
 import CategoryRadar from '../molecules/CategoryRadar.vue';
 import TopicIllustration from '../atoms/TopicIllustration.vue';
@@ -26,6 +27,6 @@ const groups = computed(() => definitions.map(group => {
         <CategoryRadar :title="group.title" :entries="group.entries" :maximum="group.maximum" />
       </article>
     </div>
-    <p class="crop-profiles__note">Un dato mancante non significa zero: il disegno si interrompe. Per ogni settore è indicato quanti comuni hanno dati disponibili. La scala cambia tra i gruppi. <a v-if="metric.breakdown?.[0]?.metric.sources[0]" :href="metric.breakdown[0].metric.sources[0]!.url" target="_blank" rel="noreferrer">Fonte: ISTAT, registro ASIA ↗</a></p>
+    <p class="crop-profiles__note">Un dato mancante non significa zero: il disegno si interrompe. Per ogni settore è indicato quanti comuni hanno dati disponibili. La scala cambia tra i gruppi. <a v-if="metric.breakdown?.[0]?.metric.sources[0]" :href="metric.breakdown[0].metric.sources[0]!.url" target="_blank" rel="noreferrer">Fonte: ISTAT, registro ASIA <InterfaceIcon name="arrow-up-right" /></a></p>
   </section>
 </template>

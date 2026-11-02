@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
 import type { SectionDefinition } from '../../../shared/sections';
 import TopicIllustration from '../atoms/TopicIllustration.vue';
 const props = defineProps<{ categories: Pick<SectionDefinition, 'id' | 'label'>[]; order: string[]; destinations?: Record<string, string>; currentId?: string; municipalityName?: string }>();
@@ -56,9 +57,9 @@ function followTopic(event: MouseEvent, id: string): void {
       <svg class="topic-trigger-symbol" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6H20M4 12H16M4 18H20" /></svg>
     </button>
     <nav :id="panelId" ref="panel" popover="auto" class="topic-popover" aria-label="Vai a un tema" @toggle="onToggle">
-      <header><p class="eyebrow">I temi dell’atlante</p><h2>Scegli un tema</h2><button aria-label="Chiudi menu dei temi" @click="closeMenu">×</button></header>
+      <header><p class="eyebrow">I temi dell’atlante</p><h2>Scegli un tema</h2><button aria-label="Chiudi menu dei temi" @click="closeMenu"><InterfaceIcon name="close" /></button></header>
       <a v-for="category in categories" :key="category.id" :href="destinations?.[category.id] ?? `#tema-${category.id}`" :aria-current="current?.id===category.id ? 'location' : undefined" @click="followTopic($event,category.id)">
-        <span class="topic-menu-number">{{ String(order.indexOf(category.id)+1).padStart(2,'0') }}</span><TopicIllustration :topic="category.id" /><span>{{ category.label }}</span><span class="topic-menu-arrow" aria-hidden="true">↗</span>
+        <span class="topic-menu-number">{{ String(order.indexOf(category.id)+1).padStart(2,'0') }}</span><TopicIllustration :topic="category.id" /><span>{{ category.label }}</span><span class="topic-menu-arrow" aria-hidden="true"><InterfaceIcon name="arrow-up-right" /></span>
       </a>
     </nav>
   </aside>

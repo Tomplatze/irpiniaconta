@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
 import type { CollectionInventory, CollectionScope } from '../../shared/collection';
 import type { SectionOverview } from '../../shared/sections';
 import type { Catalogue } from '../../shared/catalogue';
@@ -41,7 +42,7 @@ useSeoMeta({ description: 'Scopri le fonti dei dati di IrpiniaConta, gli anni di
 
 <template>
   <div class="supporting-page collection-page">
-    <EditorialHeader eyebrow="Dietro ogni numero, una fonte" title="Da dove arrivano" accent="i dati." description="Scopri chi pubblica i dati, a quali anni si riferiscono e per quanti comuni sono disponibili. Ogni indicatore rimanda alla propria fonte." topic="sources"><NuxtLink to="/">Esplora l’Irpinia ↗</NuxtLink><a href="#catalogo-fonti">Catalogo delle fonti ↓</a></EditorialHeader>
+    <EditorialHeader eyebrow="Dietro ogni numero, una fonte" title="Da dove arrivano" accent="i dati." description="Scopri chi pubblica i dati, a quali anni si riferiscono e per quanti comuni sono disponibili. Ogni indicatore rimanda alla propria fonte." topic="sources"><NuxtLink to="/">Esplora l’Irpinia <InterfaceIcon name="arrow-up-right" /></NuxtLink><a href="#catalogo-fonti">Catalogo delle fonti <InterfaceIcon name="arrow-down" /></a></EditorialHeader>
     <p v-if="error" class="notice" role="alert">Non riusciamo a mostrare le fonti. Riprova più tardi.</p>
     <template v-if="inventory">
       <div class="editorial-figures" aria-label="Stato della raccolta">
@@ -60,7 +61,7 @@ useSeoMeta({ description: 'Scopri le fonti dei dati di IrpiniaConta, gli anni di
           <p class="source-catalogue__count" role="status">{{ catalogueSources.length }} {{ catalogueSources.length === 1 ? 'fonte' : 'fonti' }}</p>
           <ul class="source-catalogue__list">
             <li v-for="source in catalogueSources" :key="source.id">
-              <div><a :href="source.landing_url" target="_blank" rel="noopener noreferrer">{{ source.title }} ↗</a><span>{{ source.publisher }} · {{ sourceGeography(source.geography) }}</span></div>
+              <div><a :href="source.landing_url" target="_blank" rel="noopener noreferrer">{{ source.title }} <InterfaceIcon name="arrow-up-right" /></a><span>{{ source.publisher }} · {{ sourceGeography(source.geography) }}</span></div>
             </li>
           </ul>
           <p v-if="!catalogueSources.length">Nessuna fonte trovata. Prova una ricerca diversa.</p>

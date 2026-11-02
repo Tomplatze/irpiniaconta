@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
 import type { SectionMap, TerritoryMetric, TerritoryResponse } from '../../../shared/sections';
 import MunicipalMetricMap from '../molecules/MunicipalMetricMap.vue';
 import MetricStory from '../molecules/MetricStory.vue';
@@ -98,8 +99,8 @@ function addTown(): void {
         <p v-if="code && !category" class="municipality-identity"><span class="municipality-marker" aria-hidden="true">●</span> Provincia di Avellino <span>ISTAT {{ code }}</span></p>
         <p class="territory-lead">{{ topic ? 'Tutti gli indicatori del tema, con grafici, periodi e fonti: '+(code ? 'il dettaglio di '+scopeName+'.' : 'il quadro dell’intera Irpinia.') : comparison ? 'Sovrapponi le storie di due, tre o quattro comuni. Gli stessi indicatori, gli stessi periodi e una scala condivisa.' : code ? 'La pagina di '+scopeName+': residenti, attività, servizi e paesaggio. Ogni indicatore riguarda questo comune; gli anni e le fonti accompagnano i numeri.' : 'Persone, paesaggi, risorse e cambiamenti. Un ritratto del territorio da leggere con gli occhi, un dato alla volta.' }}</p>
         <label v-if="category && data" class="territory-scope-picker">Territorio del tema<select :value="code ?? ''" @change="selectTown"><option value="">Tutta l’Irpinia</option><option v-for="town in data.municipalities" :key="town.code" :value="town.code">{{ town.name }}</option></select></label>
-        <div class="hero-actions"><a class="action-primary" href="#temi">{{ comparison ? 'Guarda i grafici' : 'Esplora i dati' }} ↓</a><NuxtLink v-if="!comparison" :to="{path:'/confronta',query:code ? {codes:`${code},${code==='064033' ? '064036' : '064033'}`} : {}}">Confronta i comuni ↗</NuxtLink><NuxtLink v-else to="/">Tutta l’Irpinia ↗</NuxtLink></div>
-        <NuxtLink v-if="code && !category" class="municipality-switch" to="/comuni">Esplora un altro comune ↗</NuxtLink>
+        <div class="hero-actions"><a class="action-primary" href="#temi">{{ comparison ? 'Guarda i grafici' : 'Esplora i dati' }} <InterfaceIcon name="arrow-down" /></a><NuxtLink v-if="!comparison" :to="{path:'/confronta',query:code ? {codes:`${code},${code==='064033' ? '064036' : '064033'}`} : {}}">Confronta i comuni <InterfaceIcon name="arrow-up-right" /></NuxtLink><NuxtLink v-else to="/">Tutta l’Irpinia <InterfaceIcon name="arrow-up-right" /></NuxtLink></div>
+        <NuxtLink v-if="code && !category" class="municipality-switch" to="/comuni">Esplora un altro comune <InterfaceIcon name="arrow-up-right" /></NuxtLink>
         <p class="hero-footnote">{{ topic ? 'Un tema' : '10 temi' }} · {{ topic ? mapMetrics.length : allMetrics.length }} indicatori selezionati · {{ code ? scopeName : '118 comuni' }}<br>Ogni dato conserva il suo anno e la sua fonte.</p>
       </div>
       <section v-if="mapMetric && map" id="mappa-territorio" class="territory-map" aria-label="Esplora i comuni sulla mappa">
@@ -113,7 +114,7 @@ function addTown(): void {
     </div>
     <section v-if="comparison && data" class="comparison-pickers" aria-label="Comuni da confrontare">
       <div v-for="(selected,index) in codes" :key="index" class="comparison-picker" :class="`series-tone-${index}`"><label :for="`town-${index}`"><i :class="`series-symbol-${index}`" />Comune {{ index+1 }}</label><select :id="`town-${index}`" :value="selected" @change="changeComparisonTown(index,$event)"><option v-for="town in data.municipalities" :key="town.code" :value="town.code" :disabled="town.code!==selected && codes.includes(town.code)">{{ town.name }}</option></select><button v-if="codes.length>2" @click="updateCodes(codes.filter((_,position)=>position!==index))">Rimuovi</button></div>
-      <button v-if="codes.length<4" class="add-comparison" @click="addTown">＋ Aggiungi un comune</button>
+      <button v-if="codes.length<4" class="add-comparison" @click="addTown"><InterfaceIcon name="plus" /> Aggiungi un comune</button>
     </section>
     <p v-if="error" class="notice" role="alert">Non riusciamo a mostrare i dati in questo momento. Riprova più tardi.</p>
     <p v-if="status==='pending'" class="notice" role="status">Aggiornamento dei grafici per i territori scelti…</p>

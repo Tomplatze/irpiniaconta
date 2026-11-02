@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
 const { available, preview, visible, storageError, start, choose } = useAnalyticsConsent();
 
 const syncChoice = (event: StorageEvent) => {
@@ -10,7 +11,7 @@ onUnmounted(() => window.removeEventListener('storage', syncChoice));
 
 <template>
   <section v-if="visible" class="consent-banner" role="region" aria-labelledby="consent-title" aria-describedby="consent-description">
-    <button class="consent-close" type="button" aria-label="Chiudi e rifiuta i cookie statistici" @click="choose('rejected')">×</button>
+    <button class="consent-close" type="button" aria-label="Chiudi e rifiuta i cookie statistici" @click="choose('rejected')"><InterfaceIcon name="close" /></button>
     <p class="consent-eyebrow">Le tue preferenze</p>
     <h2 id="consent-title">La tua privacy conta.</h2>
     <p v-if="preview" class="consent-preview">Anteprima locale · nessuna scelta viene salvata</p>

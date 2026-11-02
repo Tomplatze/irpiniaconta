@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
 import type { CollectionScope, CollectedDataset } from '../../../shared/collection';
 import { collectionStatusLabels, collectionPeriods, collectionSummary, collectionLimitation, licenseDescription } from '../../utils/sourcePresentation';
 const props = defineProps<{ source: CollectionScope; datasets: CollectedDataset[] }>();
@@ -23,8 +24,8 @@ function safeLink(value: string): string | null { try { const url = new URL(valu
       <p>Queste sono le informazioni raccolte dalla fonte; gli indicatori mostrati nell’atlante sono controllati separatamente.</p>
       <p v-if="dataset.license">Licenza dichiarata: {{ licenseDescription(dataset.license) }}</p>
       <details><summary>Copertura per anno o periodo</summary><ul><li v-for="(count, period) in dataset.coverage_by_period" :key="period">{{ collectionPeriods([String(period)]) }}: {{ count }}/118 comuni</li></ul></details>
-      <details><summary>Consulta i dati originali</summary><p v-for="(url,index) in dataset.source_urls" :key="url"><a v-if="safeLink(url)" :href="safeLink(url)!" target="_blank" rel="noopener noreferrer">Fonte originale {{ index+1 }} ↗</a><span v-else>Indirizzo della fonte non disponibile</span></p></details>
+      <details><summary>Consulta i dati originali</summary><p v-for="(url,index) in dataset.source_urls" :key="url"><a v-if="safeLink(url)" :href="safeLink(url)!" target="_blank" rel="noopener noreferrer">Fonte originale {{ index+1 }} <InterfaceIcon name="arrow-up-right" /></a><span v-else>Indirizzo della fonte non disponibile</span></p></details>
     </details>
-    <a class="official-source-link" :href="source.landing_url" target="_blank" rel="noopener noreferrer">{{ source.publisher }} · Fonte del catalogo ↗</a>
+    <a class="official-source-link" :href="source.landing_url" target="_blank" rel="noopener noreferrer">{{ source.publisher }} · Fonte del catalogo <InterfaceIcon name="arrow-up-right" /></a>
   </article>
 </template>
