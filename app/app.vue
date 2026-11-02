@@ -3,16 +3,19 @@ import creatorArtwork from './assets/illustrations/project-creator.webp';
 import AnalyticsConsent from './components/organisms/AnalyticsConsent.vue';
 const route = useRoute();
 const { openPreferences } = useAnalyticsConsent();
+const { progress, isLoading } = useLoadingIndicator();
 </script>
 <template>
   <div class="atlas-app">
+    <div class="page-loading" :class="{ 'is-visible': isLoading }" aria-hidden="true"><span :style="{ transform: `scaleX(${progress / 100})` }" /></div>
+    <div class="page-loading-status" role="status" aria-live="polite"><span v-if="isLoading">Caricamento della pagina…</span></div>
     <a class="skip-link" href="#contenuto">Vai al contenuto</a>
     <header class="portal-header">
       <NuxtLink to="/" class="brand" aria-label="IrpiniaConta Beta, homepage"><span class="conta-mark" aria-hidden="true"><i /><i /><i /><i /></span><span>irpinia<strong>conta</strong><small>.it</small></span><span class="brand-beta">Beta</span></NuxtLink>
       <nav aria-label="Navigazione principale"><NuxtLink to="/" :class="{'is-active':route.path.startsWith('/sezioni/')}">L’Irpinia</NuxtLink><NuxtLink to="/comuni">I comuni</NuxtLink><NuxtLink to="/confronta">Confronta</NuxtLink><NuxtLink to="/raccolta" :class="{'is-active':['/dataset','/aggiornamenti'].includes(route.path)}">Le fonti</NuxtLink></nav>
       <span class="header-edition">Atlante dei 118 comuni</span>
     </header>
-    <main id="contenuto" class="portal-main" tabindex="-1"><NuxtPage /></main>
+    <main id="contenuto" class="portal-main" tabindex="-1"><NuxtPage :transition="{ name: 'page-enter', mode: 'default' }" /></main>
     <aside class="project-notice" aria-labelledby="project-notice-title">
       <div class="project-notice__intro"><p class="project-notice__eyebrow">Trasparenza del progetto</p><h2 id="project-notice-title">Un progetto indipendente, in fase beta.</h2><img class="project-notice__art" :src="creatorArtwork" alt="" aria-hidden="true" loading="lazy" decoding="async" /></div>
       <div class="project-notice__content"><p>IrpiniaConta è un progetto amatoriale, realizzato nel tempo libero. Non è un sito istituzionale e le sue elaborazioni non sono dati ufficiali.</p><p>Le informazioni provengono dalle fonti indicate, ma possono contenere errori, omissioni o dati non aggiornati. Per usi ufficiali o decisioni importanti consulta sempre le fonti originali.</p><p>Il codice del progetto è destinato alla pubblicazione open source con <a href="https://opensource.org/license/mit" target="_blank" rel="noopener noreferrer">licenza MIT</a>. I dati e i contenuti di terzi mantengono le rispettive condizioni d’uso.</p><p>Per realizzare il progetto e analizzare i dati sono stati usati anche strumenti e agenti di intelligenza artificiale, i cui risultati possono contenere errori.</p><NuxtLink to="/raccolta">Consulta le fonti e i dati originali ↗</NuxtLink></div>

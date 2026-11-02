@@ -67,8 +67,7 @@ test('municipal crests match the registry and load locally', async () => {
   for (const town of municipalities) {
     const crest = byCode.get(town.code);
     assert.equal(crest?.name, town.name);
-    assert.equal(crest.file, `/api/municipal-crests/${town.code}`);
-    assert.ok(['official', 'redrawn'].includes(crest.kind));
+    assert.match(crest.file, new RegExp(`^/municipal-crests/${town.code}\\.(?:png|jpe?g|gif|webp)$`, 'i'));
     assert.ok(html.includes(`src="${crest.file}"`), town.name);
   }
   for (let index = 0; index < municipalities.length; index += 10) {

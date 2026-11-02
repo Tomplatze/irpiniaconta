@@ -23,10 +23,15 @@ const codes = ref(initialCodes);
 const categoryFilter = ref('all');
 const mapMetricId = ref('irpef_income_mean');
 const query = computed(() => props.comparison ? {codes:codes.value.join(',')} : props.code ? {code:props.code} : {});
-const { data, status, error } = await useFetch<TerritoryResponse>('/api/territory',{query,key:`territory-${props.category ?? 'all'}-${props.comparison ? 'comparison' : props.code ?? 'province'}`});
+const [territoryResult, mapResult, crestResult] = await Promise.all([
+  useFetch<TerritoryResponse>('/api/territory',{query,key:`territory-${props.category ?? 'all'}-${props.comparison ? 'comparison' : props.code ?? 'province'}`}),
+  useFetch<SectionMap>('/api/section-map'),
+  useFetch<MunicipalCrestManifest>('/api/municipal-crests', {key: 'municipal-crests'}),
+]);
+const { data, status, error } = territoryResult;
+const { data: map } = mapResult;
+const { data: crests } = crestResult;
 if (error.value?.statusCode===404 || error.value?.statusCode===400) throw createError({statusCode:error.value.statusCode,statusMessage:'Territorio non valido'});
-const { data: map } = await useFetch<SectionMap>('/api/section-map');
-const { data: crests } = await useFetch<MunicipalCrestManifest>('/api/municipal-crests', {key: 'municipal-crests'});
 const municipalCrest = computed(() => crests.value?.records.find(crest => crest.code === props.code));
 const consistent = computed(() => data.value && (props.comparison ? data.value.scopes.map(item=>item.code).join(',')===codes.value.join(',') : data.value.scopes[0]?.code===(props.code ?? null)));
 const allMetrics = computed(() => data.value?.categories.flatMap(category=>category.metrics) ?? []);
