@@ -12,8 +12,8 @@ const { progress, isLoading } = useLoadingIndicator();
     <a class="skip-link" href="#contenuto">Vai al contenuto</a>
     <header class="portal-header">
       <NuxtLink to="/" class="brand" aria-label="IrpiniaConta Beta, homepage"><span class="conta-mark" aria-hidden="true"><i /><i /><i /><i /></span><span>irpinia<strong>conta</strong><small>.it</small></span><span class="brand-beta">Beta</span></NuxtLink>
-      <nav aria-label="Navigazione principale"><NuxtLink to="/" :class="{'is-active':route.path.startsWith('/sezioni/')}">L’Irpinia</NuxtLink><NuxtLink to="/comuni">I comuni</NuxtLink><NuxtLink to="/confronta">Confronta</NuxtLink><NuxtLink to="/raccolta" :class="{'is-active':['/dataset','/aggiornamenti'].includes(route.path)}">Le fonti</NuxtLink></nav>
-      <span class="header-edition">Atlante dei 118 comuni</span>
+      <nav aria-label="Navigazione principale"><NuxtLink to="/" :class="{'is-active':route.path.startsWith('/sezioni/')}">L’Irpinia</NuxtLink><NuxtLink to="/comuni">I comuni</NuxtLink><NuxtLink to="/confronta">Confronta</NuxtLink></nav>
+      <div id="topic-navigation-slot" class="topic-navigation-slot" />
     </header>
     <main id="contenuto" class="portal-main" tabindex="-1"><NuxtPage :transition="{ name: 'page-enter', mode: 'default' }" /></main>
     <aside class="project-notice" aria-labelledby="project-notice-title">
