@@ -4,6 +4,25 @@ import AnalyticsConsent from './components/organisms/AnalyticsConsent.vue';
 const route = useRoute();
 const { openPreferences } = useAnalyticsConsent();
 const { progress, isLoading } = useLoadingIndicator();
+const siteUrl = 'https://irpiniaconta.it';
+const canonicalUrl = computed(() => {
+  const url = new URL(route.path, siteUrl);
+  if (route.path.startsWith('/sezioni/') && typeof route.query.code === 'string') url.searchParams.set('code', route.query.code);
+  return url.toString();
+});
+const socialImage = `${siteUrl}/images/social-preview.jpg`;
+useHead({ link: [{ rel: 'canonical', href: canonicalUrl }] });
+useSeoMeta({
+  description: 'Esplora dati, mappe e grafici sui 118 comuni dell’Irpinia: persone, economia, ambiente e servizi.',
+  ogTitle: 'IrpiniaConta — I numeri del territorio',
+  ogDescription: 'Esplora dati, mappe e grafici sui 118 comuni dell’Irpinia: persone, economia, ambiente e servizi.',
+  ogType: 'website', ogSiteName: 'IrpiniaConta', ogLocale: 'it_IT', ogUrl: canonicalUrl,
+  ogImage: socialImage, ogImageType: 'image/jpeg', ogImageWidth: 1200, ogImageHeight: 675,
+  ogImageAlt: 'IrpiniaConta: dati pubblici, persone e territori dell’Irpinia.',
+  twitterCard: 'summary_large_image', twitterTitle: 'IrpiniaConta — I numeri del territorio',
+  twitterDescription: 'Esplora dati, mappe e grafici sui 118 comuni dell’Irpinia: persone, economia, ambiente e servizi.',
+  twitterImage: socialImage, twitterImageAlt: 'IrpiniaConta: dati pubblici, persone e territori dell’Irpinia.',
+});
 </script>
 <template>
   <div class="atlas-app">

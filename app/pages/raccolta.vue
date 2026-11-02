@@ -36,6 +36,7 @@ const sources = computed(() => assessedSources.value.filter(source =>
 const groups = computed(() => inventory.value?.categories.map(item => ({ ...item, sources: sources.value.filter(source => source.category_id === item.id) })).filter(item => item.sources.length) ?? []);
 const statusItems = computed(() => (Object.keys(collectionStatusLabels) as CollectionScope['status'][]).map(id => ({ id, label: collectionStatusLabels[id], count: assessedSources.value.filter(source => source.status === id).length })));
 useHead({ title: 'Dati e fonti — IrpiniaConta' });
+useSeoMeta({ description: 'Scopri le fonti dei dati di IrpiniaConta, gli anni disponibili e i territori a cui si riferiscono.', ogTitle: 'Dati e fonti — IrpiniaConta', ogDescription: 'Scopri le fonti dei dati di IrpiniaConta, gli anni disponibili e i territori a cui si riferiscono.', twitterTitle: 'Dati e fonti — IrpiniaConta', twitterDescription: 'Scopri le fonti dei dati di IrpiniaConta, gli anni disponibili e i territori a cui si riferiscono.' });
 </script>
 
 <template>

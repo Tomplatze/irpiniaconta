@@ -31,6 +31,7 @@ const groups = computed(() => {
   return [...result].map(([initial,towns]) => ({initial,towns}));
 });
 useHead({title:'I comuni — IrpiniaConta'});
+useSeoMeta({ description: 'Esplora i 118 comuni dell’Irpinia e scopri dati, mappe e grafici per ogni territorio.', ogTitle: 'I comuni — IrpiniaConta', ogDescription: 'Esplora i 118 comuni dell’Irpinia e scopri dati, mappe e grafici per ogni territorio.', twitterTitle: 'I comuni — IrpiniaConta', twitterDescription: 'Esplora i 118 comuni dell’Irpinia e scopri dati, mappe e grafici per ogni territorio.' });
 </script>
 <template>
   <div class="municipality-index">

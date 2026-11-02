@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { available, openPreferences } = useAnalyticsConsent();
 useHead({ title: 'Privacy e cookie policy — IrpiniaConta', meta: [{ name: 'robots', content: 'noindex' }] });
+useSeoMeta({ description: 'Informazioni sul trattamento dei dati personali e sulle preferenze cookie di IrpiniaConta.', ogTitle: 'Privacy e cookie policy — IrpiniaConta', ogDescription: 'Informazioni sul trattamento dei dati personali e sulle preferenze cookie di IrpiniaConta.', twitterTitle: 'Privacy e cookie policy — IrpiniaConta', twitterDescription: 'Informazioni sul trattamento dei dati personali e sulle preferenze cookie di IrpiniaConta.' });
 </script>
 
 <template>

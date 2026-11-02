@@ -56,7 +56,14 @@ function storyRows(metrics: TerritoryMetric[]): TerritoryMetric[][] {
   return result;
 }
 const topicDestinations = computed(() => props.category ? Object.fromEntries((data.value?.categories ?? []).map(category=>[category.id,`/sezioni/${category.id}${props.code ? '?code='+props.code : ''}#tema-${category.id}`])) : undefined);
-useHead({title:computed(()=>`${topic.value ? topic.value.label+' · '+scopeName.value : props.comparison ? 'Confronta i comuni' : scopeName.value} — IrpiniaConta`)});
+const seoTitle = computed(() => `${topic.value ? topic.value.label+' · '+scopeName.value : props.comparison ? 'Confronta i comuni' : scopeName.value} — IrpiniaConta`);
+const seoDescription = computed(() => topic.value
+  ? `Esplora dati e grafici su ${topic.value.label.toLocaleLowerCase('it-IT')} ${props.code ? `nel comune di ${scopeName.value}` : 'in Irpinia'}, con anni e fonti.`
+  : props.comparison ? 'Confronta i comuni dell’Irpinia attraverso dati, mappe e grafici su persone, economia, ambiente e servizi.'
+  : props.code ? `Scopri ${scopeName.value} attraverso dati, mappe e grafici su popolazione, economia, ambiente e servizi.`
+  : 'Esplora dati, mappe e grafici sui 118 comuni dell’Irpinia: persone, economia, ambiente e servizi.');
+useHead({ title: seoTitle });
+useSeoMeta({ description: seoDescription, ogTitle: seoTitle, ogDescription: seoDescription, twitterTitle: seoTitle, twitterDescription: seoDescription });
 watch(()=>route.query.codes, value => {
   if(props.comparison && typeof value==='string' && value!==codes.value.join(',')) codes.value=value.split(',');
 });
