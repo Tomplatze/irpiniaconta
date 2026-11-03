@@ -35,7 +35,7 @@
     "data:import": "node --env-file-if-exists=.env scripts/python.mjs etl.workflow update",
     "data:assets": "node --env-file-if-exists=.env scripts/python.mjs etl.publication_assets",
     "data:validate": "node --env-file-if-exists=.env scripts/python.mjs etl.validate",
-    "test": "npm run test:etl && npm run test:api && npm run test:history && npm run test:collection && npm run test:sections && npm run test:territory && npm run test:visuals && npm run test:pages && npm run test:municipal-records && npm run test:flows",
+    "test": "npm run test:etl && npm run test:api && npm run test:history && npm run test:collection && npm run test:sections && npm run test:territory && npm run test:visuals && npm run test:pages && npm run test:municipal-records && npm run test:flows && npm run test:sitemap",
     "test:territory": "node --test tests/territory-api.test.mjs",
     "test:visuals": "node --test tests/metric-visuals.test.mjs",
     "test:pages": "node --test tests/pages.test.mjs",
@@ -49,7 +49,8 @@
     "data:publish": "node --env-file-if-exists=.env scripts/python.mjs etl.workflow publish",
     "data:rebuild": "node --env-file-if-exists=.env scripts/python.mjs etl.workflow update --rebuild",
     "db:reader": "node --env-file-if-exists=.env scripts/python.mjs etl.access",
-    "test:municipal-records": "node --test tests/municipal-records.test.mjs"
+    "test:municipal-records": "node --test tests/municipal-records.test.mjs",
+    "test:sitemap": "node --test tests/sitemap.test.mjs"
   },
   "dependencies": {
     "nuxt-gtag": "^5.0.0",
