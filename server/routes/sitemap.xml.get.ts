@@ -1,4 +1,5 @@
 import { withDatabase } from '../utils/database';
+import { HEALTH_PUBLICATION_READY } from '../../app/utils/healthPublication';
 
 const SITE_URL = 'https://irpiniaconta.it';
 
@@ -13,6 +14,7 @@ export default defineEventHandler(async event => {
       throw createError({statusCode: 503, statusMessage: 'Sitemap publication is incomplete.'});
     }
     return ['/', '/comuni', '/confronta', '/raccolta',
+      ...(HEALTH_PUBLICATION_READY ? ['/salute'] : []),
       ...towns.rows.map(row => `/comuni/${row.code}`),
       ...topics.rows.map(row => `/sezioni/${row.id}`)];
   }, 'sections');

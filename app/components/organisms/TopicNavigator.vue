@@ -2,7 +2,7 @@
 import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
 import type { SectionDefinition } from '../../../shared/sections';
 import TopicIllustration from '../atoms/TopicIllustration.vue';
-const props = defineProps<{ categories: Pick<SectionDefinition, 'id' | 'label'>[]; order: string[]; destinations?: Record<string, string>; currentId?: string; municipalityName?: string }>();
+const props = defineProps<{ categories: Pick<SectionDefinition, 'id' | 'label'>[]; order: string[]; destinations?: Record<string, string>; currentId?: string; municipalityName?: string; theme?: 'health'; illustrations?: Record<string, string> }>();
 const panel = ref<HTMLElement | null>(null);
 const open = ref(false);
 const active = ref('');
@@ -50,16 +50,16 @@ function followTopic(event: MouseEvent, id: string): void {
 <template>
   <ClientOnly>
   <Teleport to="#topic-navigation-slot">
-  <aside class="topic-navigator" aria-label="Navigazione dei temi">
+  <aside class="topic-navigator" :class="{ 'topic-navigator--health': theme === 'health' }" aria-label="Navigazione dei temi">
     <button class="topic-trigger" :popovertarget="panelId" :aria-expanded="open" :aria-controls="panelId" :aria-label="`${municipalityName ? `Comune di ${municipalityName}. ` : ''}${current ? `Menu dei temi. Stai leggendo: ${current.label}` : 'Scegli un tema. Apri menu dei temi'}`">
-      <span class="topic-trigger-label"><small>{{ current ? 'Stai leggendo' : 'Esplora l’atlante' }}</small><strong>{{ current?.label ?? 'Scegli un tema' }}</strong><span v-if="municipalityName" class="topic-trigger-town">{{ municipalityName }}</span></span>
+      <span class="topic-trigger-label"><small>{{ current ? 'Stai leggendo' : theme === 'health' ? 'La salute in Irpinia' : 'Esplora l’atlante' }}</small><strong>{{ current?.label ?? 'Scegli un tema' }}</strong><span v-if="municipalityName" class="topic-trigger-town">{{ municipalityName }}</span></span>
       <span class="topic-trigger-short" aria-hidden="true"><span>Temi <span v-if="current">{{ String(order.indexOf(current.id)+1).padStart(2,'0') }}</span></span><span v-if="municipalityName" class="topic-trigger-town">{{ municipalityName }}</span></span>
       <svg class="topic-trigger-symbol" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6H20M4 12H16M4 18H20" /></svg>
     </button>
     <nav :id="panelId" ref="panel" popover="auto" class="topic-popover" aria-label="Vai a un tema" @toggle="onToggle">
-      <header><p class="eyebrow">I temi dell’atlante</p><h2>Scegli un tema</h2><button aria-label="Chiudi menu dei temi" @click="closeMenu"><InterfaceIcon name="close" /></button></header>
+      <header><p class="eyebrow">{{ theme === 'health' ? 'La salute in Irpinia' : 'I temi dell’atlante' }}</p><h2>Scegli un tema</h2><button aria-label="Chiudi menu dei temi" @click="closeMenu"><InterfaceIcon name="close" /></button></header>
       <a v-for="category in categories" :key="category.id" :href="destinations?.[category.id] ?? `#tema-${category.id}`" :aria-current="current?.id===category.id ? 'location' : undefined" @click="followTopic($event,category.id)">
-        <span class="topic-menu-number">{{ String(order.indexOf(category.id)+1).padStart(2,'0') }}</span><TopicIllustration :topic="category.id" /><span>{{ category.label }}</span><span class="topic-menu-arrow" aria-hidden="true"><InterfaceIcon name="arrow-up-right" /></span>
+        <span class="topic-menu-number">{{ String(order.indexOf(category.id)+1).padStart(2,'0') }}</span><TopicIllustration :topic="category.id" :metric="illustrations?.[category.id]" /><span>{{ category.label }}</span><span class="topic-menu-arrow" aria-hidden="true"><InterfaceIcon name="arrow-up-right" /></span>
       </a>
     </nav>
   </aside>

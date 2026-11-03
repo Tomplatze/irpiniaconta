@@ -1,5 +1,14 @@
+import { HEALTH_PUBLICATION_READY } from './app/utils/healthPublication';
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-10-12',
+  hooks: {
+    'pages:extend'(pages) {
+      if (process.env.NODE_ENV !== 'production' || HEALTH_PUBLICATION_READY) return;
+      const healthIndex = pages.findIndex(page => page.path === '/salute');
+      if (healthIndex !== -1) pages.splice(healthIndex, 1);
+    },
+  },
   devtools: { enabled: false },
   modules: ['nuxt-gtag'],
   gtag: { initMode: 'manual' },

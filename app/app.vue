@@ -2,7 +2,9 @@
 import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
 import creatorArtwork from './assets/illustrations/project-creator.webp';
 import AnalyticsConsent from './components/organisms/AnalyticsConsent.vue';
+import { HEALTH_PUBLICATION_READY } from './utils/healthPublication';
 const route = useRoute();
+const healthAvailable = import.meta.dev || HEALTH_PUBLICATION_READY;
 const { openPreferences } = useAnalyticsConsent();
 const { progress, isLoading } = useLoadingIndicator();
 const siteUrl = 'https://irpiniaconta.it';
@@ -32,7 +34,7 @@ useSeoMeta({
     <a class="skip-link" href="#contenuto">Vai al contenuto</a>
     <header class="portal-header">
       <NuxtLink to="/" class="brand" aria-label="IrpiniaConta Beta, homepage"><span class="conta-mark" aria-hidden="true"><i /><i /><i /><i /></span><span>irpinia<strong>conta</strong><small>.it</small></span><span class="brand-beta">Beta</span></NuxtLink>
-      <nav aria-label="Navigazione principale"><NuxtLink to="/" :class="{'is-active':route.path.startsWith('/sezioni/')}">L’Irpinia</NuxtLink><NuxtLink to="/comuni">I comuni</NuxtLink><NuxtLink to="/confronta">Confronta</NuxtLink></nav>
+      <nav aria-label="Navigazione principale"><NuxtLink to="/" :class="{'is-active':route.path.startsWith('/sezioni/')}">L’Irpinia</NuxtLink><NuxtLink to="/comuni">I comuni</NuxtLink><NuxtLink to="/confronta">Confronta</NuxtLink><NuxtLink v-if="healthAvailable" to="/salute" class="health-nav-link"><InterfaceIcon name="heart-pulse" />Salute in Irpinia</NuxtLink></nav>
       <div id="topic-navigation-slot" class="topic-navigation-slot" />
     </header>
     <main id="contenuto" class="portal-main" tabindex="-1"><NuxtPage :transition="{ name: 'page-enter', mode: 'default' }" /></main>

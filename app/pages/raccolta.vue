@@ -9,6 +9,8 @@ import StatusBreakdown from '../components/molecules/StatusBreakdown.vue';
 import TopicIllustration from '../components/atoms/TopicIllustration.vue';
 import TopicNavigator from '../components/organisms/TopicNavigator.vue';
 import { collectionStatusLabels, sourceGeography } from '../utils/sourcePresentation';
+import { HEALTH_PUBLICATION_READY } from '~/utils/healthPublication';
+import type { HealthPublication } from '../../shared/health';
 const { data: inventory, error } = await useFetch<CollectionInventory>('/api/collection');
 const { data: catalogue, error: catalogueError } = await useFetch<Catalogue>('/api/catalogue');
 const { data: sections } = await useFetch<SectionOverview>('/api/sections');
@@ -19,6 +21,9 @@ const query = ref('');
 const catalogueQuery = ref('');
 const catalogueSources = computed(() => catalogue.value?.sources.filter(source =>
   `${source.title} ${source.publisher}`.toLocaleLowerCase('it-IT').includes(catalogueQuery.value.trim().toLocaleLowerCase('it-IT'))) ?? []);
+const { data: healthPublication, error: healthPublicationError } = await useFetch<HealthPublication>('/api/health-statistics', { immediate: import.meta.dev || HEALTH_PUBLICATION_READY });
+const healthCatalogueSources = computed(() => (healthPublication.value?.sources ?? []).filter(source => `${source.title} ${source.publisher}`.toLocaleLowerCase('it-IT').includes(catalogueQuery.value.trim().toLocaleLowerCase('it-IT'))));
+const healthCatalogueCount = computed(() => healthPublication.value?.sources.length ?? 0);
 const selectedSourceIds = computed(() => new Set(sections.value?.categories.flatMap(item => item.metrics.flatMap(metric => metric.sources.map(source => source.id))) ?? []));
 const publishedDatasets: Record<string, string> = {
   'DEM-04': 'istat-foreign-age-2026',
@@ -56,15 +61,19 @@ useSeoMeta({ description: 'Scopri le fonti dei dati di IrpiniaConta, gli anni di
         <header><div><p class="eyebrow">Le fonti consultate</p><h2 id="source-catalogue-title">Catalogo delle fonti</h2><p>Le fonti esaminate, comprese quelle i cui dati non sono ancora disponibili nell’atlante.</p></div></header>
         <p v-if="catalogueError" class="notice" role="alert">Non riusciamo a mostrare il catalogo. Riprova più tardi.</p>
         <details v-else-if="catalogue" class="source-catalogue__details">
-          <summary>Consulta l’elenco completo · {{ catalogue.sources.length }} fonti</summary>
+          <summary>Consulta l’elenco completo · {{ catalogue.sources.length + healthCatalogueCount }} fonti</summary>
+          <p v-if="healthPublicationError" class="notice" role="alert">Le fonti della sezione salute sono temporaneamente non disponibili.</p>
           <label>Cerca nel catalogo<input v-model="catalogueQuery" type="search" placeholder="Titolo o ente…"></label>
-          <p class="source-catalogue__count" role="status">{{ catalogueSources.length }} {{ catalogueSources.length === 1 ? 'fonte' : 'fonti' }}</p>
+          <p class="source-catalogue__count" role="status">{{ catalogueSources.length + healthCatalogueSources.length }} {{ catalogueSources.length + healthCatalogueSources.length === 1 ? 'fonte' : 'fonti' }}</p>
           <ul class="source-catalogue__list">
             <li v-for="source in catalogueSources" :key="source.id">
               <div><a :href="source.landing_url" target="_blank" rel="noopener noreferrer">{{ source.title }} <InterfaceIcon name="arrow-up-right" /></a><span>{{ source.publisher }} · {{ sourceGeography(source.geography) }}</span></div>
             </li>
+            <li v-for="source in healthCatalogueSources" :key="source.id">
+              <div><a :href="source.url" target="_blank" rel="noopener noreferrer">{{ source.title }} <InterfaceIcon name="arrow-up-right" /></a><span>{{ source.publisher }} · Salute in Irpinia · {{ source.period }}</span><span>{{ source.rights }}</span></div>
+            </li>
           </ul>
-          <p v-if="!catalogueSources.length">Nessuna fonte trovata. Prova una ricerca diversa.</p>
+          <p v-if="!catalogueSources.length && !healthCatalogueSources.length">Nessuna fonte trovata. Prova una ricerca diversa.</p>
         </details>
       </section>
       <form class="source-filters" role="search" aria-label="Filtra le fonti raccolte" @submit.prevent>

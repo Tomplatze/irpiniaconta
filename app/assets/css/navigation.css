@@ -65,3 +65,9 @@
   .portal-header .topic-trigger .topic-trigger-symbol { width: 18px; height: 18px; }
   .portal-header .topic-trigger-short { max-width: 94px; }
 }
+
+/* Keep the health link distinct without changing the global icon system. */
+.portal-header nav a.health-nav-link { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.health-nav-link .interface-icon { color: var(--accent); width: 17px; height: 17px; transform-origin: center; animation: health-heartbeat 2.8s ease-in-out infinite; }
+@keyframes health-heartbeat { 0%, 76%, 100% { transform: scale(1); } 80% { transform: scale(1.12); } 85% { transform: scale(1); } 89% { transform: scale(1.07); } }
+@media (prefers-reduced-motion: reduce) { .health-nav-link .interface-icon { animation: none; } }

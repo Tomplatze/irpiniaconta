@@ -26,7 +26,7 @@ REQUIRED = {
 }
 OPTIONAL = {
     'data/boundary-attributes-2026.csv', 'data/verification.json',
-    'data/weather-verification.json', 'data/geography-verification.json',
+    'data/weather-verification.json', 'data/geography-verification.json', 'data/health-publication.json',
 }
 
 
@@ -68,6 +68,10 @@ def publication_files(root: Path) -> set[str]:
                       ('configuration_sha256', 'config/sections.json')]:
         if lineage[key] != checksum(root / name):
             raise ValueError(f'Publication lineage mismatch: {name}')
+    health = root / 'data/health-publication.json'
+    if health.is_file():
+        from etl.health_publication import validate as validate_health
+        validate_health(json.loads(health.read_text()))
     files = REQUIRED | set(artifacts) | {name for name in OPTIONAL if (root / name).is_file()}
     crest_manifest_path = root / 'data/municipal-crests/manifest.json'
     if crest_manifest_path.is_file():

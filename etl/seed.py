@@ -7,6 +7,7 @@ from etl.database import PUBLICATION_LOCK, connect, load_core, load_sections, re
 from etl.pipeline import ROOT, replay_snapshot
 from etl.publication_assets import publish_assets
 from etl.publication import load_prepared
+from etl.health_publication import publish as publish_health
 from etl.seed_validation import assert_seed_compatible
 
 
@@ -33,8 +34,10 @@ def main() -> None:
                 (historical['run_id'], historical['started_at'], historical['completed_at'],
                  historical['mode'], Jsonb(historical)))
         asset_result = publish_assets(connection=database, assets=assets)
+        health_path = ROOT / 'data/health-publication.json'
+        health_result = publish_health(health_path, connection=database, allow_revision=False) if health_path.is_file() else None
     print(json.dumps({'status': 'ready', 'municipalities': len(municipalities),
-                      'selected_metrics': len(selected['metrics']), 'assets': asset_result}, indent=2))
+                      'selected_metrics': len(selected['metrics']), 'assets': asset_result, 'health': health_result}, indent=2))
 
 
 if __name__ == '__main__':

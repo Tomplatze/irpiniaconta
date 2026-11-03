@@ -163,3 +163,14 @@ and matching transformation/configuration versions. Current upstream files may
 contain revisions or different periods. `data:pack`/`data:unpack` transfer a
 verified publication separately from Git; PostgreSQL backups and original raw
 archive backups remain independent responsibilities.
+
+
+## Aggregate health publication
+
+The health page reads the latest validated revision from `atlas.health_publications` via the read-only `GET /api/health-statistics` endpoint. The snapshot contains only reviewed public provincial, whole-ASL, regional and national aggregates; source URLs, periods, limitations and reuse notes travel with it. The page and endpoint remain unavailable in production until the publication gate is enabled.
+
+The reviewed local source snapshot lives in `data/health-publication.json`, outside Git, alongside the project's other data evidence. Validate with `npm run data:health-check`, then explicitly publish with `npm run data:health-publish`. The publisher checks the scope and consistency, obtains the shared publication lock and appends a complete revision transactionally. It preserves earlier revisions, records an import checksum, and makes repeated imports of the current revision a no-op. It does not acquire newer source data or contain an automated update schedule.
+
+`data:pack` includes this optional snapshot when present and validates it; `db:seed` restores it within the same transaction as the other data. Source raw bytes and independent database backups remain separate. The database reader must have `SELECT` on the health publication table; local `db:reader` grants it alongside the existing atlas tables.
+
+The production database was originally restored without `public.schema_migrations`. Before establishing a baseline, compare existing atlas and sections tables, columns, defaults, constraints and indexes against the local migration state. Record the baseline and apply only the new migration; never recreate existing publication tables or overwrite data. Test schema changes on an isolated Neon branch first.

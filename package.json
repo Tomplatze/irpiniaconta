@@ -40,6 +40,8 @@
     "test:visuals": "node --test tests/metric-visuals.test.mjs",
     "test:pages": "node --test tests/pages.test.mjs",
     "test:flows": "node --test tests/demographic-flows.test.mjs tests/demographic-flow-plot.test.mjs",
+    "data:health-check": "node --env-file-if-exists=.env scripts/python.mjs etl.health_publication --check",
+    "data:health-publish": "node --env-file-if-exists=.env scripts/python.mjs etl.health_publication",
     "data:pack": "node --env-file-if-exists=.env scripts/python.mjs etl.bundle pack",
     "data:unpack": "node --env-file-if-exists=.env scripts/python.mjs etl.bundle unpack",
     "repo:check": "node scripts/check-repository.mjs",
@@ -50,7 +52,8 @@
     "data:rebuild": "node --env-file-if-exists=.env scripts/python.mjs etl.workflow update --rebuild",
     "db:reader": "node --env-file-if-exists=.env scripts/python.mjs etl.access",
     "test:municipal-records": "node --test tests/municipal-records.test.mjs",
-    "test:sitemap": "node --test tests/sitemap.test.mjs"
+    "test:sitemap": "node --test tests/sitemap.test.mjs",
+    "test:health-publication": "node --test tests/health-publication.test.mjs"
   },
   "dependencies": {
     "nuxt-gtag": "^5.0.0",
