@@ -15,7 +15,7 @@ test('coalesces concurrent reads, separates scopes and retries failures', async 
   assert.equal(calls, 3);
 });
 
-test('expires cached results after five minutes', async () => {
+test('expires cached results after one day', async () => {
   const original = Date.now;
   let now = 1000;
   Date.now = () => now;
@@ -23,7 +23,7 @@ test('expires cached results after five minutes', async () => {
     let calls = 0;
     const read = async () => ({ generated_at: String(++calls) });
     await cachedTerritory('test-expiry', read);
-    now += 299999;
+    now += 86399999;
     await cachedTerritory('test-expiry', read);
     assert.equal(calls, 1);
     now++;

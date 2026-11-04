@@ -1,10 +1,10 @@
 import type { TerritoryResponse } from '../../shared/sections';
 
-const lifetime = 5 * 60 * 1000;
+const lifetime = 24 * 60 * 60 * 1000;
 const maxEntries = 16;
 const entries = new Map<string, { expires: number; value: Promise<TerritoryResponse> }>();
 
-/** Share successful territory reads within one server instance for at most five minutes. */
+/** Share successful territory reads within one server instance for at most one day. */
 export function cachedTerritory(key: string, read: () => Promise<TerritoryResponse>): Promise<TerritoryResponse> {
   const existing = entries.get(key);
   if (existing && existing.expires > Date.now()) {

@@ -12,6 +12,6 @@ export default defineNitroPlugin(nitro => {
     if (event.method !== 'GET' || getResponseStatus(event) !== 200
       || !publicApiPaths.has(path) || getResponseHeader(event, 'set-cookie')) return;
 
-    setResponseHeader(event, 'Netlify-CDN-Cache-Control', 'public, durable, max-age=300');
+    setResponseHeader(event, 'Netlify-CDN-Cache-Control', 'public, durable, max-age=2505600');
   });
 });
