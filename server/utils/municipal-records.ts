@@ -88,11 +88,12 @@ async function collectedRecords(database: PoolClient, id: string, group: string)
   const key = `${group}:${dataset.staging_sha256}`;
   let pending = cache.get(key);
   if (!pending) {
-    const result = await database.query<{payload:Buffer;sha256:string}>('SELECT payload,sha256 FROM atlas.publication_artifacts WHERE path=$1 AND kind=$2',[dataset.staging_file,'source-rows']);
-    const artifact = result.rows[0];
-    if (!artifact || artifact.sha256 !== dataset.staging_sha256 || createHash('sha256').update(artifact.payload).digest('hex') !== dataset.staging_sha256) throw createError({statusCode:503,statusMessage:'Collected records failed verification'});
-    const metadata = {title:dataset.title,publisher:dataset.publisher,url:dataset.source_urls[0] ?? ''};
-    pending = decompress(artifact.payload).then(buffer => {
+    pending = (async () => {
+      const result = await database.query<{payload:Buffer;sha256:string}>('SELECT payload,sha256 FROM atlas.publication_artifacts WHERE path=$1 AND kind=$2',[dataset.staging_file,'source-rows']);
+      const artifact = result.rows[0];
+      if (!artifact || artifact.sha256 !== dataset.staging_sha256 || createHash('sha256').update(artifact.payload).digest('hex') !== dataset.staging_sha256) throw createError({statusCode:503,statusMessage:'Collected records failed verification'});
+      const metadata = {title:dataset.title,publisher:dataset.publisher,url:dataset.source_urls[0] ?? ''};
+      const buffer = await decompress(artifact.payload);
       const towns = new Map<string,Map<string,MunicipalRecord>>();
       for (const line of buffer.toString('utf8').split('\n')) if (line) {
         const row = JSON.parse(line) as SourceRow;
@@ -104,7 +105,7 @@ async function collectedRecords(database: PoolClient, id: string, group: string)
         }
       }
       return new Map([...towns].map(([code,bucket])=>[code,[...bucket.values()].sort((a,b)=>a.title.localeCompare(b.title,'it'))]));
-    });
+    })();
     cache.set(key,pending);
     pending.catch(() => { if (cache.get(key)===pending) cache.delete(key); });
   }

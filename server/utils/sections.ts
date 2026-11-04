@@ -40,9 +40,12 @@ function publicMetric(metric: StoredMetric): SectionMetric {
   return { id: metric.id, category: metric.category, label: metric.label, description: metric.description, unit: metric.unit,
     aggregation: metric.aggregation, periods: metric.periods, latest_period: metric.latest_period, sources, has_monthly: metric.has_monthly };
 }
-async function cells(database: PoolClient, id: string, monthly = false): Promise<Cell[]> {
+async function cells(database: PoolClient, id: string, monthly = false, period?: string, code?: string | null): Promise<Cell[]> {
   const table = monthly ? 'values_monthly' : 'values_annual';
-  const result = await database.query<Record<string, unknown>>(`SELECT code,period,value,status,weight FROM ${table} WHERE metric=$1 ORDER BY period`, [id]);
+  const result = await database.query<Record<string, unknown>>(
+    `SELECT code,period,value,status,weight FROM ${table} WHERE metric=$1 AND ($2::text IS NULL OR period=$2) AND ($3::text IS NULL OR code=$3) ORDER BY period`,
+    [id, period ?? null, code ?? null],
+  );
   return result.rows.map(row => ({
     code: String(row.code), period: String(row.period), value: row.value === null ? null : Number(row.value), status: String(row.status) as ValueStatus,
     weight: row.weight === null ? null : Number(row.weight),
@@ -132,7 +135,7 @@ export async function sectionOverview(database: PoolClient, code: string | null 
   const definitions = (await metrics(database)).filter(metric => (!metric.presentation_role || metric.presentation_role==='public'));
   const summaries: SectionSummaryMetric[] = [];
   for (const metric of definitions) {
-    summaries.push({ ...publicMetric(metric), current: current(metric, await cells(database, metric.id), code, municipality?.name) });
+    summaries.push({ ...publicMetric(metric), current: current(metric, await cells(database, metric.id, false, metric.latest_period, code), code, municipality?.name) });
   }
   const result = await database.query<Record<string, unknown>>('SELECT metadata::text AS metadata FROM publication');
   const publication = JSON.parse(String(result.rows[0]?.metadata)) as { generated_at: string };
