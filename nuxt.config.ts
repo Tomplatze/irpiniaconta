@@ -18,6 +18,16 @@ export default defineNuxtConfig({
   app: { head: {
     htmlAttrs: { lang: 'it' },
     title: 'IrpiniaConta — I numeri del territorio',
-    meta: [{ name: 'description', content: 'Numeri e informazioni dalle fonti pubbliche per conoscere e confrontare i 118 comuni dell’Irpinia.' }],
+    meta: [
+      { name: 'description', content: 'Numeri e informazioni dalle fonti pubbliche per conoscere e confrontare i 118 comuni dell’Irpinia.' },
+      { name: 'theme-color', content: '#f5f3eb' },
+    ],
+    link: [
+      { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
+      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+      { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+      { rel: 'manifest', href: '/site.webmanifest' },
+    ],
   } },
 });
