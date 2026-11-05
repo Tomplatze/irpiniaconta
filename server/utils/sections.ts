@@ -1,5 +1,6 @@
 import type { PoolClient } from 'pg';
 import { withDatabase } from './database';
+import { snapshotSectionsClient, useSnapshotPublication } from './snapshot';
 import type { AggregateMethod, SectionCurrent, SectionDefinition, SectionHistory, SectionMetric, SectionOverview, SectionPoint, SectionResponse, SectionSource, SectionSummaryMetric } from '../../shared/sections';
 import type { ValueStatus } from '../../shared/types';
 import type { TerritoryMetric, TerritoryResponse } from '../../shared/sections';
@@ -14,7 +15,7 @@ const methodLabels: Record<AggregateMethod, string> = {
 
 /** Read the curated publication through the same bounded PostgreSQL pool. */
 export function withSections<T>(callback: (database: PoolClient) => Promise<T>): Promise<T> {
-  return withDatabase(callback, 'sections');
+  return useSnapshotPublication() ? snapshotSectionsClient().then(callback) : withDatabase(callback, 'sections');
 }
 
 /** Read only internally generated metadata; original source fields stay outside presentation. */

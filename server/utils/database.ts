@@ -25,6 +25,7 @@ export async function closeDatabase(): Promise<void> {
 
 /** Read a consistent publication; an ETL commit becomes visible on the next request. */
 export async function withDatabase<T>(read: (database: PoolClient) => Promise<T>, schema: 'atlas' | 'sections' = 'atlas'): Promise<T> {
+  if (useRuntimeConfig().publicationMode === 'snapshot') throw createError({ statusCode: 503, statusMessage: 'Database access is disabled in snapshot mode.' });
   let database: PoolClient | undefined;
   let discardConnection = false;
   try {

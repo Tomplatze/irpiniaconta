@@ -56,6 +56,7 @@
     "test:health-publication": "node --test tests/health-publication.test.mjs"
   },
   "dependencies": {
+    "@netlify/blobs": "10.7.13",
     "nuxt-gtag": "^5.0.0",
     "pg": "8.23.1",
     "vue": "^3.5.0",

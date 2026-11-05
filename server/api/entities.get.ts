@@ -1,3 +1,5 @@
+import { snapshotEntities } from '../utils/snapshot-legacy';
+import { useSnapshotPublication } from '../utils/snapshot';
 import type { EntityPage } from '../../shared/catalogue';
 import { withDatabase } from '../utils/database';
 import { entityRecord, readScope } from '../utils/scope';
@@ -10,6 +12,7 @@ export default defineEventHandler((event): Promise<EntityPage> => {
   if (!Number.isInteger(offset) || offset < 0 || !Number.isInteger(limit) || limit < 1 || limit > 100) throw createError({ statusCode: 400, statusMessage: 'Invalid pagination' });
   if (query.code !== undefined && (typeof query.code !== 'string' || !/^064\d{3}$/.test(query.code))) throw createError({ statusCode: 400, statusMessage: 'Invalid municipal code' });
   if (query.category !== undefined && typeof query.category !== 'string') throw createError({ statusCode: 400, statusMessage: 'Invalid category' });
+  if (useSnapshotPublication()) return snapshotEntities(offset,limit,query.code as string | undefined,query.category as string | undefined);
   return withDatabase(async database => {
     const scope = await readScope(database);
     if (query.category && !scope.categories.some(category => category.id === query.category)) throw createError({ statusCode: 404, statusMessage: 'Unknown category' });

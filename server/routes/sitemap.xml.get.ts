@@ -1,3 +1,4 @@
+import { snapshotObject, useSnapshotPublication } from '../utils/snapshot';
 import { withDatabase } from '../utils/database';
 import { HEALTH_PUBLICATION_READY } from '../../app/utils/healthPublication';
 
@@ -5,6 +6,11 @@ const SITE_URL = 'https://irpiniaconta.it';
 
 /** Publish canonical, indexable pages from the current read-only publication. */
 export default defineEventHandler(async event => {
+  if (useSnapshotPublication()) {
+    setHeader(event, 'Content-Type', 'application/xml; charset=utf-8');
+    setHeader(event, 'Cache-Control', 'no-cache');
+    return snapshotObject<string>('sitemap.gz');
+  }
   const paths = await withDatabase(async database => {
     const towns = await database.query<{code: string}>('SELECT code FROM sections.municipalities ORDER BY code');
     const topics = await database.query<{id: string}>('SELECT id FROM sections.categories ORDER BY position');

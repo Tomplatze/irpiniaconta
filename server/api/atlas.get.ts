@@ -1,3 +1,4 @@
+import { snapshotObject, useSnapshotPublication } from '../utils/snapshot';
 import { withDatabase } from '../utils/database';
 import { readOverview } from '../utils/catalog';
 import { readPublicationDocument } from '../utils/collection';
@@ -6,7 +7,7 @@ interface EditorialIndicator { id: string; label: string; description: string }
 interface EditorialSelection { indicators: EditorialIndicator[] }
 
 /** Present a small editorial selection while retaining complete data in the technical catalogue. */
-export default defineEventHandler(() => withDatabase(async database => {
+export default defineEventHandler(() => useSnapshotPublication() ? snapshotObject('atlas.gz') : withDatabase(async database => {
   const overview = await readOverview(database);
   const selection = await readPublicationDocument<EditorialSelection>(database, 'editorial');
   const definitions = new Map(selection.indicators.map(indicator => [indicator.id, indicator]));

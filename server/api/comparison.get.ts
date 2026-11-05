@@ -1,3 +1,5 @@
+import { snapshotComparison } from '../utils/snapshot-legacy';
+import { useSnapshotPublication } from '../utils/snapshot';
 import type { Comparison, ComparisonRow } from '../../shared/types';
 import { withDatabase } from '../utils/database';
 import { readCatalog, readMunicipalities } from '../utils/catalog';
@@ -14,6 +16,7 @@ export default defineEventHandler((event): Promise<Comparison> => {
   if (query.period !== undefined && (typeof query.period !== 'string' || !/^\d{4}(?:-\d{2}-\d{2})?$/.test(query.period) || !query.indicator)) {
     throw createError({ statusCode: 400, statusMessage: 'An explicit period requires a valid indicator' });
   }
+  if (useSnapshotPublication()) return snapshotComparison(codes,query.indicator as string | undefined,query.period as string | undefined);
   return withDatabase(async database => {
     const registry = await readMunicipalities(database);
     const datasets = await readCatalog(database);

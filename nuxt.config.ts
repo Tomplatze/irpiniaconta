@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   gtag: { initMode: 'manual' },
   css: ['~/assets/css/main.css', '~/assets/css/fonts.css', '~/assets/css/technical.css', '~/assets/css/collection.css', '~/assets/css/sections.css', '~/assets/css/territory.css', '~/assets/css/charts.css', '~/assets/css/supporting-pages.css', '~/assets/css/refinement.css', '~/assets/css/map-readout.css', '~/assets/css/demographic-flows.css', '~/assets/css/municipal-stories.css', '~/assets/css/illustration-layout.css', '~/assets/css/privacy.css', '~/assets/css/page-loading.css', '~/assets/css/navigation.css'],
   typescript: { strict: true, typeCheck: false },
-  runtimeConfig: { databaseReadUrl: '', public: { analyticsId: '', analyticsPolicyReady: false } },
+  runtimeConfig: { databaseReadUrl: '', publicationMode: 'snapshot', public: { analyticsId: '', analyticsPolicyReady: false } },
   app: { head: {
     htmlAttrs: { lang: 'it' },
     title: 'IrpiniaConta — I numeri del territorio',
