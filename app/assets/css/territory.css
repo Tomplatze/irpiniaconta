@@ -238,23 +238,15 @@ body {
 .municipal-area {
   stroke:#f5f3eb;
   stroke-width:.8;
-  transition:filter .16s;
-  cursor:pointer
+  cursor:pointer;
+  /* A thicker highlight stroke must not change the pointer target. */
+  pointer-events:fill
 }
-.municipal-area:hover,.municipal-area:focus {
-  outline:none;
-  stroke:#f5f3eb;
-  stroke-width:.8;
-  filter:brightness(1.08)
-}
-.municipal-area:focus-visible {
-  stroke:var(--accent);
-  stroke-width:2
-}
-.map-raised {
-  pointer-events:none;
-  stroke:var(--surface);
-  stroke-width:1.2
+.municipal-metric-map:not(.municipal-metric-map--directory) .municipal-area--active {
+  stroke:var(--ink);
+  stroke-width:2;
+  stroke-linejoin:round;
+  vector-effect:non-scaling-stroke
 }
 .map-key {
   gap:10px;

@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import InterfaceIcon from '~/components/atoms/InterfaceIcon.vue';
-import type { SectionMap, SectionResponse } from '../../../shared/sections';
+import type { SectionMap, SectionOverview } from '../../../shared/sections';
 import EditorialHeader from '../../components/molecules/EditorialHeader.vue';
 import MunicipalMetricMap from '../../components/molecules/MunicipalMetricMap.vue';
 import MunicipalCrest from '../../components/atoms/MunicipalCrest.vue';
 import type { MunicipalCrestManifest } from '../../../shared/municipalCrests';
-import { sectionPeriod } from '../../utils/sections';
-const {data: publication, error} = await useFetch<SectionResponse>('/api/section', {query:{category:'demography',metric:'population'}});
-const {data: map} = await useFetch<SectionMap>('/api/section-map');
-const {data: crests} = await useFetch<MunicipalCrestManifest>('/api/municipal-crests', {key: 'municipal-crests'});
+const [{ data: registry, error }, { data: map }, { data: crests }] = await Promise.all([
+  useFetch<SectionOverview>('/api/sections', { key: 'municipality-directory', pick: ['municipalities'] }),
+  useFetch<SectionMap>('/api/section-map'),
+  useFetch<MunicipalCrestManifest>('/api/municipal-crests', { key: 'municipal-crests' }),
+]);
 const crestsByCode = computed(() => new Map(crests.value?.records.map(crest => [crest.code, crest]) ?? []));
 const search = ref('');
 const headerSearchFocused = ref(false);
@@ -20,7 +21,7 @@ function onHeaderSearchBlur(event: FocusEvent): void {
 function searchable(value: string): string {
   return value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('it-IT').trim();
 }
-const municipalities = computed(() => publication.value?.municipalities.filter(town => searchable(`${town.name} ${town.code}`).includes(searchable(search.value))).toSorted((left,right) => left.name.localeCompare(right.name,'it-IT')) ?? []);
+const municipalities = computed(() => registry.value?.municipalities.filter(town => searchable(`${town.name} ${town.code}`).includes(searchable(search.value))).toSorted((left,right) => left.name.localeCompare(right.name,'it-IT')) ?? []);
 const groups = computed(() => {
   const result = new Map<string, typeof municipalities.value>();
   for (const town of municipalities.value) {
@@ -52,13 +53,11 @@ useSeoMeta({ description: 'Esplora i 118 comuni dell’Irpinia e scopri dati, ma
         </div>
       </Teleport>
     </ClientOnly>
-    <EditorialHeader eyebrow="Un territorio, tante storie" title="118 comuni." accent="Ognuno conta." description="Scegli un comune per aprire il suo ritratto: residenti, economia, servizi e paesaggio. La mappa conserva il contesto dell’Irpinia, ogni pagina mette al centro il suo territorio." topic="municipalities">
+    <EditorialHeader eyebrow="Un territorio, tante storie" title="118 comuni." accent="Ognuno conta." description="Scegli un comune per aprire il suo ritratto: residenti, economia, servizi e paesaggio. Puoi partire dalla mappa oppure cercarlo nell’elenco." topic="municipalities">
       <a class="action-primary" href="#elenco-comuni">Trova il tuo comune <InterfaceIcon name="arrow-down" /></a><NuxtLink to="/confronta">Confronta due comuni <InterfaceIcon name="arrow-up-right" /></NuxtLink>
       <template #visual>
-        <section v-if="map && publication" class="territory-map municipality-index-map" aria-label="Scegli un comune sulla mappa">
-          <p class="eyebrow">La popolazione dei comuni</p>
-          <MunicipalMetricMap :map="map" :values="publication.distribution" :unit="publication.metric.unit" selected-code="" :period="sectionPeriod(publication.metric.latest_period,publication.metric.id)" navigation />
-          <p class="map-period-label">{{ sectionPeriod(publication.metric.latest_period,publication.metric.id) }} · ISTAT</p>
+        <section v-if="map && registry" class="territory-map municipality-index-map" aria-label="Scegli un comune sulla mappa">
+          <MunicipalMetricMap :map="map" :directory="{ municipalities: registry.municipalities, crests: crestsByCode }" navigation />
         </section>
       </template>
     </EditorialHeader>

@@ -38,3 +38,20 @@
   .map-readout-identity strong { font-size: 14px; }
   .map-readout-value { font-size: 12px; }
 }
+
+@media (min-width: 761px) {
+  .municipality-index > .editorial-header { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.municipal-metric-map--directory .map-stage { padding: 14px 0; }
+.municipal-metric-map--directory .map-stage svg { height: auto; }
+.municipal-metric-map--directory .map-base { fill: #3b6250; stroke: #3b6250; }
+.municipal-metric-map--directory .municipal-area {
+  fill: #648b75;
+  stroke: #f9f2dd;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.municipal-metric-map--directory .municipal-area--active { fill: var(--forest); }
+.municipal-metric-map--directory .map-readout-primary { min-height: 76px; }
+.municipal-metric-map--directory .map-readout-primary .municipal-crest img { width: 36px; height: 44px; }
+.municipal-metric-map--directory .map-readouts { margin-bottom: 0; }
