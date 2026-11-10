@@ -178,7 +178,7 @@ body {
   min-width:0;
   align-self:stretch;
   padding:18px 22px 18px;
-  background:#eef0e6;
+  background:var(--surface);
   border-radius:6px;
   position:relative
 }
@@ -937,7 +937,7 @@ body {
 .portal-main .metric-story--counter .story-number { font-size: clamp(46px, 5.5vw, 76px); }
 .metric-story--counter .story-values--multiple { padding-bottom: 85px; }
 .metric-story--counter .story-values--multiple .story-number { font-size: 30px; }
-.metric-story--catalogue { background: #f0f0e5; border-color: #d4d9c9; }
+.metric-story--catalogue { border-color: #d4d9c9; }
 .portal-main .counter-source { color: var(--muted); font-size: 11px; max-width: 70%; margin: 14px 0 22px; }
 .portal-main .source-citation { display: flex; flex-direction: column; gap: 6px; padding: 15px 0; border-top: 1px solid var(--line); }
 .source-citation > span { color: var(--muted); font-size: 10px; }

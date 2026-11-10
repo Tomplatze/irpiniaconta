@@ -19,11 +19,19 @@ const category = ref(typeof route.query.category === 'string' && inventory.value
 const state = ref('all');
 const query = ref('');
 const catalogueQuery = ref('');
-const catalogueSources = computed(() => catalogue.value?.sources.filter(source =>
-  `${source.title} ${source.publisher}`.toLocaleLowerCase('it-IT').includes(catalogueQuery.value.trim().toLocaleLowerCase('it-IT'))) ?? []);
+const catalogueSearch = computed(() => catalogueQuery.value.trim().toLocaleLowerCase('it-IT'));
+function matchesCatalogue(source: { title: string; publisher: string }): boolean {
+  return `${source.title} ${source.publisher}`.toLocaleLowerCase('it-IT').includes(catalogueSearch.value);
+}
+const catalogueSources = computed(() => catalogue.value?.sources.filter(matchesCatalogue) ?? []);
+const provincialSources = computed(() => catalogue.value?.provincial_sources ?? []);
+const provincialCatalogueSources = computed(() => provincialSources.value.filter(matchesCatalogue));
 const { data: healthPublication, error: healthPublicationError } = await useFetch<HealthPublication>('/api/health-statistics', { immediate: import.meta.dev || HEALTH_PUBLICATION_READY });
-const healthCatalogueSources = computed(() => (healthPublication.value?.sources ?? []).filter(source => `${source.title} ${source.publisher}`.toLocaleLowerCase('it-IT').includes(catalogueQuery.value.trim().toLocaleLowerCase('it-IT'))));
-const healthCatalogueCount = computed(() => healthPublication.value?.sources.length ?? 0);
+const healthCatalogueSources = computed(() => (healthPublication.value?.sources ?? []).filter(matchesCatalogue));
+const catalogueCount = computed(() => (catalogue.value?.sources.length ?? 0)
+  + provincialSources.value.length + (healthPublication.value?.sources.length ?? 0));
+const catalogueResultCount = computed(() => catalogueSources.value.length
+  + provincialCatalogueSources.value.length + healthCatalogueSources.value.length);
 const selectedSourceIds = computed(() => new Set(sections.value?.categories.flatMap(item => item.metrics.flatMap(metric => metric.sources.map(source => source.id))) ?? []));
 const publishedDatasets: Record<string, string> = {
   'DEM-04': 'istat-foreign-age-2026',
@@ -61,19 +69,28 @@ useSeoMeta({ description: 'Scopri le fonti dei dati di IrpiniaConta, gli anni di
         <header><div><p class="eyebrow">Le fonti consultate</p><h2 id="source-catalogue-title">Catalogo delle fonti</h2><p>Le fonti esaminate, comprese quelle i cui dati non sono ancora disponibili nell’atlante.</p></div></header>
         <p v-if="catalogueError" class="notice" role="alert">Non riusciamo a mostrare il catalogo. Riprova più tardi.</p>
         <details v-else-if="catalogue" class="source-catalogue__details">
-          <summary>Consulta l’elenco completo · {{ catalogue.sources.length + healthCatalogueCount }} fonti</summary>
+          <summary>Consulta l’elenco completo · {{ catalogueCount }} fonti</summary>
           <p v-if="healthPublicationError" class="notice" role="alert">Le fonti della sezione salute sono temporaneamente non disponibili.</p>
           <label>Cerca nel catalogo<input v-model="catalogueQuery" type="search" placeholder="Titolo o ente…"></label>
-          <p class="source-catalogue__count" role="status">{{ catalogueSources.length + healthCatalogueSources.length }} {{ catalogueSources.length + healthCatalogueSources.length === 1 ? 'fonte' : 'fonti' }}</p>
+          <p class="source-catalogue__count" role="status">{{ catalogueResultCount }} {{ catalogueResultCount === 1 ? 'fonte' : 'fonti' }}</p>
           <ul class="source-catalogue__list">
             <li v-for="source in catalogueSources" :key="source.id">
               <div><a :href="source.landing_url" target="_blank" rel="noopener noreferrer">{{ source.title }} <InterfaceIcon name="arrow-up-right" /></a><span>{{ source.publisher }} · {{ sourceGeography(source.geography) }}</span></div>
+            </li>
+            <li v-for="source in provincialCatalogueSources" :key="source.id">
+              <div>
+                <a :href="source.landing_url" target="_blank" rel="noopener noreferrer">{{ source.title }} <InterfaceIcon name="arrow-up-right" /></a>
+                <span>{{ source.publisher }} · Dettaglio provinciale · {{ source.period }}</span>
+                <span>{{ source.description }}</span>
+                <span v-for="table in source.tables" :key="table.url"><a :href="table.url" target="_blank" rel="noopener noreferrer">{{ table.label }}</a></span>
+                <span><a :href="source.rights_url" target="_blank" rel="noopener noreferrer">{{ source.license ?? 'Note legali Terna' }}</a></span>
+              </div>
             </li>
             <li v-for="source in healthCatalogueSources" :key="source.id">
               <div><a :href="source.url" target="_blank" rel="noopener noreferrer">{{ source.title }} <InterfaceIcon name="arrow-up-right" /></a><span>{{ source.publisher }} · Salute in Irpinia · {{ source.period }}</span><span>{{ source.rights }}</span></div>
             </li>
           </ul>
-          <p v-if="!catalogueSources.length && !healthCatalogueSources.length">Nessuna fonte trovata. Prova una ricerca diversa.</p>
+          <p v-if="!catalogueResultCount">Nessuna fonte trovata. Prova una ricerca diversa.</p>
         </details>
       </section>
       <form class="source-filters" role="search" aria-label="Filtra le fonti raccolte" @submit.prevent>

@@ -7,6 +7,7 @@ import CropHighlight from '../molecules/CropHighlight.vue';
 import CropRadarSection from './CropRadarSection.vue';
 import AgriculturalRadarSection from './AgriculturalRadarSection.vue';
 import EconomicRadarSection from './EconomicRadarSection.vue';
+import EnergySection from './EnergySection.vue';
 import MunicipalRecords from '../molecules/MunicipalRecords.vue';
 import TopicNavigator from './TopicNavigator.vue';
 import TopicIllustration from '../atoms/TopicIllustration.vue';
@@ -124,6 +125,7 @@ function addTown(): void {
       <section v-for="category in visibleCategories" :id="`tema-${category.id}`" :key="category.id" class="territory-chapter" :aria-labelledby="`heading-${category.id}`">
         <header class="chapter-heading"><TopicIllustration :topic="category.id" class="chapter-illustration" /><div><p class="eyebrow">{{ category.intro }}</p><h2 :id="`heading-${category.id}`">{{ category.label }}</h2></div></header>
         <p v-if="chapterDescriptions[category.id]" class="chapter-description">{{ chapterDescriptions[category.id] }}</p>
+        <EnergySection v-if="!code && !comparison && !props.category && category.id==='environment'" />
         <div class="story-grid">
           <div v-for="row in storyRows(category.metrics)" :key="row[0]!.id" class="story-row" :class="{'story-row--pair':row.length===2}"><MetricStory v-for="metric in row" :key="metric.id" :metric="metric" /></div>
           <CropHighlight v-if="category.id==='agriculture' && category.metrics.find(metric => metric.id==='utilised_agricultural_area')" :metric="category.metrics.find(metric => metric.id==='utilised_agricultural_area')!" />

@@ -36,7 +36,7 @@ export function buildHistoryPlot(values: HistoryValue[]): HistoryPlot {
   return { path: commands.join(' '), areaPaths, points };
 }
 
-export interface OverlayInput { code: string; name: string; values: HistoryValue[] }
+export interface OverlayInput { code: string; name: string; values: Array<HistoryValue & { detail?: string }> }
 export interface OverlayPlot {
   minimum: number; maximum: number; ticks: number[]; periods: Array<{ period: string; x: number }>;
   zeroY: number; barWidth: number;
@@ -44,13 +44,20 @@ export interface OverlayPlot {
 }
 
 /** Project every municipality onto one time/value domain; union periods expose missing gaps. */
-export function buildOverlayPlot(series: OverlayInput[], width = 720, options: { includeZero?: boolean; bars?: boolean } = {}): OverlayPlot {
+export function buildOverlayPlot(series: OverlayInput[], width = 720, options: { includeZero?: boolean; bars?: boolean; percentChange?: boolean } = {}): OverlayPlot {
   const periods = [...new Set(series.flatMap(item => item.values.map(point => point.period)))].filter(period => Number.isFinite(periodTimestamp(period))).sort((a,b) => periodTimestamp(a)-periodTimestamp(b));
   const values = series.flatMap(item => item.values.filter(point => point.status === 'observed' && point.value !== null && Number.isFinite(point.value) && periods.includes(point.period)).map(point => point.value!));
   const minimum = values.length ? Math.min(...values) : 0; const maximum = values.length ? Math.max(...values) : 0;
   const padding = maximum === minimum ? Math.max(Math.abs(maximum)*.05, 1) : (maximum-minimum)*.12;
-  const low = options.includeZero && minimum >= 0 ? 0 : minimum-padding;
-  const high = options.includeZero && maximum <= 0 && minimum < 0 ? 0 : maximum+padding;
+  let low = options.includeZero && minimum >= 0 ? 0 : minimum-padding;
+  let high = options.includeZero && maximum <= 0 && minimum < 0 ? 0 : maximum+padding;
+  if (options.percentChange) {
+    // Keep a symmetric reference where possible. Nonnegative measurements can fall at most 100%.
+    const extent = Math.max(1, -minimum, maximum);
+    const step = 2 * 10 ** Math.floor(Math.log10(extent));
+    high = Math.ceil(extent / step) * step;
+    low = -Math.min(high, 100);
+  }
   const start = periodTimestamp(periods[0] ?? '2000'); const duration = periodTimestamp(periods.at(-1) ?? '2000')-start;
   const plotWidth = width-86;
   const intervalRatios = periods.slice(1).map((period,index)=>(periodTimestamp(period)-periodTimestamp(periods[index]!))/duration);

@@ -4,7 +4,7 @@
 .portal-header nav{display:flex;gap:18px;flex-wrap:wrap;flex:1}.portal-header nav a[aria-current=page]{font-weight:700;text-decoration:underline}
 .portal-main>h1{font-size:2rem;line-height:1.2;margin:24px 0 16px}.portal-main h2{font-size:1.35rem;margin:18px 0 12px}.portal-main h3{font-size:1.05rem;margin:10px 0}
 .portal-main p{line-height:1.55;margin:12px 0}.section-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:24px 0}
-.section-card,.panel,.source-row{border:1px solid #c9cdc7;border-radius:6px;padding:20px;margin:16px 0;background:#fff}.section-card{margin:0;text-decoration:none}.section-card:hover{border-color:#163c2c}.notice{padding:14px;background:#edf1ec;border-left:3px solid #47705b}
+.section-card,.panel,.source-row{border:1px solid #c9cdc7;border-radius:6px;padding:20px;margin:16px 0;background:var(--surface)}.section-card{margin:0;text-decoration:none}.section-card:hover{border-color:#163c2c}.notice{padding:14px;background:#edf1ec;border-left:3px solid #47705b}
 .form-row{display:flex;gap:16px;align-items:end;flex-wrap:wrap;margin:16px 0}.portal-main label{display:block;max-width:100%;font-weight:600;font-size:.9rem}
 .portal-main select,.portal-main input{display:block;padding:10px;margin-top:6px;max-width:100%;min-height:42px;border:1px solid #999;border-radius:4px;background:white;color:#192c23}
 .form-row label:first-child{flex:1;min-width:220px}.form-row select{width:100%}.portal-main button,.plain-button{border:1px solid #799082;border-radius:4px;padding:10px 14px;min-height:42px;background:white;color:#192c23;text-decoration:none;cursor:pointer}.portal-main button:disabled{opacity:.45;cursor:default}

@@ -50,7 +50,7 @@ export function collectionPeriods(values: string[]): string {
 export function collectionSummary(id: string, summary: string): string {
   const descriptions: Record<string, string> = {
     'ECO-01': 'Sedi delle imprese e persone che vi lavorano, suddivise per tipo di attività, secondo ISTAT.',
-    'ECO-04': 'Dati su sedi delle imprese e addetti; il censimento economico completo richiede ulteriori approfondimenti.',
+    'ECO-04': 'La raccolta comprende i dati ISTAT sulle sedi delle imprese e sugli addetti.',
     'ECO-05': 'Statistiche comunali ISTAT e altre informazioni pubblicate dalle Camere di commercio.',
     'ECO-09': 'Il registro completo delle imprese non è disponibile in questa raccolta come insieme di dati comunali a libero accesso.',
     'PA-02': 'Sono disponibili due anni di bilanci, 2024 e 2025. I bilanci più vecchi non sono ancora presenti nella raccolta.',

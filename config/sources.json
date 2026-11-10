@@ -9,6 +9,77 @@
     "notification_policy": "failed_runs_only",
     "enabled": false
   },
+  "provincial_publications": {
+    "energy": {
+      "id": "AMB-11",
+      "title": "Produzione e consumi elettrici nella provincia di Avellino",
+      "publisher": "Terna",
+      "landing_url": "https://www.terna.it/it/sistema-elettrico/statistiche/pubblicazioni-statistiche",
+      "geography": "province",
+      "description": "Produzione elettrica totale e rinnovabile, consumi per settore e serie annuali per la provincia di Avellino.",
+      "dataset_id": "terna_energy_avellino",
+      "status": "ready",
+      "blocker": null,
+      "cadence_days": 365,
+      "license": null,
+      "options": {
+        "rights_url": "https://www.terna.it/it/note-legali",
+        "reports": {
+          "2018": {
+            "url": "https://download.terna.it/terna/statistiche%20regionali_2018_8d7b93cbf9ad480.pdf",
+            "sha256": "a48d1c4a4df839c8e4808e424b05d35b9d0c294f59d479a36ca9c1e6a8105eb6",
+            "generation_page": 188,
+            "production_page": 189,
+            "consumption_page": 191
+          },
+          "2019": {
+            "url": "https://download.terna.it/terna/Statistiche%20Regionali_2019_8da3e69c41d27b9.pdf",
+            "sha256": "f000fb221b8fc360adbfec5ca16a28ee055b89a430e33ac9ae119e5e47948411",
+            "generation_page": 188,
+            "production_page": 189,
+            "consumption_page": 191
+          },
+          "2020": {
+            "url": "https://download.terna.it/terna/Statistiche%20Regionali_2020_8da3e688a4231ad.pdf",
+            "sha256": "c9ea46433f82219915bfdfa2b5089163997338c1c43a70b3c8fbf9e6e4fdb488",
+            "generation_page": 188,
+            "production_page": 189,
+            "consumption_page": 191
+          },
+          "2021": {
+            "url": "https://download.terna.it/terna/Statistiche_Regionali_2021_8db10445c332527.pdf",
+            "sha256": "4bd89b061f9ee9c3e2d0a0d9b0e438b5f1615bcd6a4a4207da683e9d10fce696",
+            "generation_page": 186,
+            "production_page": 187,
+            "consumption_page": 189
+          },
+          "2022": {
+            "url": "https://download.terna.it/terna/Statistiche%20Regionali_2022_WEB_8dc914ce42e7207.pdf",
+            "sha256": "f5b8838524d911a6c3c7bdca9b08bbdf3b89a87e5091824206a8dc586d806921",
+            "generation_page": 186,
+            "production_page": 187,
+            "consumption_page": 189
+          },
+          "2023": {
+            "url": "https://download.terna.it/terna/Statistiche%20Regionali_2023_8dd453d0b00e86b.pdf",
+            "sha256": "aa4e66ec405d25ed834ea410503e2c11623c240f209e6af92a764764769566dd",
+            "generation_page": 186,
+            "production_page": 187,
+            "consumption_page": 189
+          },
+          "2024": {
+            "url": "https://download.terna.it/terna/Statistiche%20Regionali_2024_8de8598cb39d81e.pdf",
+            "sha256": "9e49fda50e5b7c92a05acb68cc74a0f85f02c4234e2903b99cb0e83f355ef824",
+            "generation_page": 186,
+            "production_page": 187,
+            "consumption_page": 189
+          }
+        }
+      },
+      "update_policy": "manual annual review of pinned regional statistics tables",
+      "temporal_semantics": "statistical_period"
+    }
+  },
   "categories": [
     {
       "id": "demography",

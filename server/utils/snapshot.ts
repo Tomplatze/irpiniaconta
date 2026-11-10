@@ -14,7 +14,7 @@ interface RecordSnapshot { version: number; records: Record<string, Record<strin
 interface SourceSnapshot { version: number; observations: Row[]; entities: Row[]; metrics: Row[]; categories: Row[]; towns: Row[]; annual: Row[]; monthly: Row[]; publication: Row[] }
 const cache = new Map<string, Promise<unknown>>();
 const storeName = 'irpiniaconta-snapshot-20261105';
-const prefix = '20261105-v2/';
+const prefix = '20261110-v1/';
 
 /** Select the explicit emergency publication mode. */
 export function useSnapshotPublication(): boolean { return useRuntimeConfig().publicationMode === 'snapshot'; }

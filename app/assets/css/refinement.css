@@ -6,11 +6,11 @@ body { font-variant-numeric: lining-nums; }
 .territory-introduction h1 { font-size: clamp(44px,5.2vw,72px); font-weight: 750; line-height: 1.08; letter-spacing: -3.5px; }
 .territory-introduction h1 em,.hero-title-sub { font-style: normal; font-weight: inherit; }
 .portal-main .territory-lead { font-size: 15px; line-height: 1.8; }
-.territory-map { border-radius: 10px; border: 1px solid #dfe5d7; background: radial-gradient(ellipse at 25% 0%,#f7f8ee,#e8eee1); padding: 24px; }
+.territory-map { border-radius: 10px; border: 1px solid #dfe5d7; padding: 24px; }
 .territory-highlights { border: 0; gap: 14px; }
-.territory-highlights a,.territory-highlights a:first-child { padding: 25px; border: 1px solid var(--line); border-radius: 8px; background: #ffffff40; }
+.territory-highlights a,.territory-highlights a:first-child { padding: 25px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
 .territory-highlights a:last-child { border: 1px solid var(--line); }
-.territory-highlights a:hover { background: var(--surface); border-color: #b6c9b7; }
+.territory-highlights a:hover { border-color: #b6c9b7; }
 .territory-highlights strong { font-weight: 650; font-size: clamp(27px,3vw,41px); letter-spacing: -1.6px; line-height: 1.2; }
 .territory-highlights small { display: block; font-size: 11px; margin-top: 5px; }
 .territory-page .theme-toolbar h2 { font-size: clamp(28px,3vw,39px); font-weight: 700; letter-spacing: -1.5px; }
@@ -22,8 +22,6 @@ body { font-variant-numeric: lining-nums; }
 .territory-page .story-heading h3 { font-size: 17px; line-height: 1.5; letter-spacing: -.35px; font-weight: 700; }
 .portal-main .story-number { font-weight: 650; font-size: clamp(33px,3.7vw,48px); letter-spacing: -1.8px; }
 .portal-main .metric-story--counter .story-number { font-size: 58px; font-weight: 750; letter-spacing: -2px; }
-.metric-story--counter { background: linear-gradient(130deg,#fffef9,#eef2e7); }
-.metric-story--percentage { background: linear-gradient(140deg,#fffef9,#f0f4e9); }
 .story-title > .topic-illustration { width: 60px; height: 48px; }
 .stat-illustration { width: 190px; height: 150px; opacity: 1; bottom: -15px; }
 .metric-story--counter .story-statistic { padding-block: 25px 52px; }
@@ -127,7 +125,6 @@ body { font-variant-numeric: lining-nums; }
 /* Single-column stories avoid gaps between charts with different heights. */
 .territory-page .story-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
 .territory-page .metric-story { border-color: #bacabb; }
-.territory-page .metric-story--counter { background: #f2f6ed; }
 .portal-header .brand-beta { display: inline-flex; align-items: center; padding: 4px 8px; border: 1px solid #a9bfae; border-radius: 6px; color: #285c49; background: #e5eee1; font-size: 10px; font-weight: 750; line-height: 1; letter-spacing: .04em; text-transform: uppercase; }
 
 .story-row { min-width: 0; display: grid; grid-template-columns: minmax(0,1fr); gap: 16px; align-items: stretch; }

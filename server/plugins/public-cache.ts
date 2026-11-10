@@ -1,6 +1,6 @@
 const publicApiPaths = new Set([
   '/api/atlas', '/api/catalogue', '/api/collection', '/api/comparison',
-  '/api/entities', '/api/explore', '/api/health-statistics', '/api/municipal-records',
+  '/api/energy-statistics', '/api/entities', '/api/explore', '/api/health-statistics', '/api/municipal-records',
   '/api/overview', '/api/section', '/api/section-map', '/api/sections',
   '/api/series', '/api/territory', '/api/updates',
 ]);
@@ -12,6 +12,6 @@ export default defineNitroPlugin(nitro => {
     if (event.method !== 'GET' || getResponseStatus(event) !== 200
       || !publicApiPaths.has(path) || getResponseHeader(event, 'set-cookie')) return;
 
-    setResponseHeader(event, 'Netlify-CDN-Cache-Control', 'public, durable, max-age=2505600');
+    setResponseHeader(event, 'Netlify-CDN-Cache-Control', 'public, durable, max-age=2592000');
   });
 });

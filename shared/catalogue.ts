@@ -10,7 +10,18 @@ export interface SourceEntry {
   dataset: Dataset | null; stale: boolean; checked_at: string | null;
   landing_status: string | null; entity_count: number; associated_entity_count: number;
 }
-export interface Catalogue { categories: Category[]; sources: SourceEntry[] }
+export interface ProvincialSourceEntry {
+  id: string;
+  title: string;
+  publisher: string;
+  landing_url: string;
+  description: string;
+  period: string;
+  rights_url: string;
+  license: string | null;
+  tables: Array<{ label: string; url: string }>;
+}
+export interface Catalogue { categories: Category[]; sources: SourceEntry[]; provincial_sources?: ProvincialSourceEntry[] }
 export interface EntityRecord {
   dataset_id: string; source_id: string; municipality_code: string | null; title: string;
   kind: string; period: string; payload: Record<string, unknown>; municipality_name: string | null;
