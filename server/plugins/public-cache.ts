@@ -1,17 +1,16 @@
-const publicApiPaths = new Set([
-  '/api/atlas', '/api/catalogue', '/api/collection', '/api/comparison',
-  '/api/energy-statistics', '/api/entities', '/api/explore', '/api/health-statistics', '/api/municipal-records',
-  '/api/overview', '/api/section', '/api/section-map', '/api/sections',
-  '/api/series', '/api/territory', '/api/updates',
-]);
+import { publicCacheKey, storePublicResponse } from '../utils/public-response-cache';
 
 /** Cache only successful public reads, with a bounded delay after ETL publication. */
 export default defineNitroPlugin(nitro => {
-  nitro.hooks.hook('beforeResponse', event => {
-    const path = getRequestURL(event).pathname;
+  nitro.hooks.hook('beforeResponse', (event, response) => {
+    const key = publicCacheKey(getRequestURL(event));
     if (event.method !== 'GET' || getResponseStatus(event) !== 200
-      || !publicApiPaths.has(path) || getResponseHeader(event, 'set-cookie')) return;
+      || !key || getResponseHeader(event, 'set-cookie')) return;
 
     setResponseHeader(event, 'Netlify-CDN-Cache-Control', 'public, durable, max-age=2592000');
+    if (useRuntimeConfig().publicationMode !== 'database' || !useRuntimeConfig().publicResponseCacheEnabled || getRequestHeader(event, 'authorization')
+      || getRequestHeader(event, 'cookie') || getResponseHeader(event, 'X-Public-Cache')) return;
+    if (response.body === null || typeof response.body !== 'object' || ArrayBuffer.isView(response.body)) return;
+    if (storePublicResponse(key, response.body)) setResponseHeader(event, 'X-Public-Cache', 'MISS');
   });
 });

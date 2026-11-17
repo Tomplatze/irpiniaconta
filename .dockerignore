@@ -1,5 +1,25 @@
-# PostgreSQL uses an upstream image; no application build context is needed.
-# Deny local evidence and secrets if an image build is added later.
+# Only the public application source and its build metadata enter the image.
 **
-!compose.yaml
-!.dockerignore
+!Dockerfile
+!package.json
+!package-lock.json
+!nuxt.config.ts
+!tsconfig.json
+!app
+!app/**
+!server
+!server/**
+!shared
+!shared/**
+!public
+!public/**
+!config
+!config/sources.json
+!scripts
+!scripts/start.mjs
+# Credentials and local evidence must never enter a build context.
+**/.env
+**/.env.*
+**/*.key
+**/*.pem
+**/*.dump
